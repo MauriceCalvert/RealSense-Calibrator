@@ -22,7 +22,7 @@ Download the package and run RealSenseCalibrator\bin\x64\Release\UI.exe.
 
 ## Author
 
-* **Maurice Calvert** - maurice@calvert.ch
+* **Maurice Calvert** - maurice AT calvert DOT ch
 
 ## License
 

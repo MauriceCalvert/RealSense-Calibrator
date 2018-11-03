@@ -1,0 +1,710 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+Calibrator
+</name>
+</assembly>
+<members>
+<member name="T:Calibrator.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:Calibrator.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:Calibrator.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="T:Calibrator.Camera">
+ <summary>
+ A physical RealSense camera, with a colour and a depth sensor.
+ This is simply a wrapper around RealSense.Device that exposes easier-to-use methods.
+ </summary>
+</member>
+<member name="E:Calibrator.Camera.FrameReady">
+ <summary>
+ Raised every time the device has a colour+depth frame ready for processing
+ </summary>
+ <param name="sender">This camera</param>
+ <param name="depthmap"></param>
+ <param name="colour"></param>
+ <param name="colorised"></param>
+</member>
+<member name="M:Calibrator.Camera.ApplySettings(Intel.RealSense.Sensor,System.Collections.Generic.IEnumerable{Calibrator.SensorSetting})">
+ <summary>
+ Apply settings to a sensor (depth or colour).
+ We only apply settings that are supported and not read-only.
+ </summary>
+</member>
+<member name="P:Calibrator.Camera.ColourFormats">
+ <summary>
+ The available and supported colour stream formats of this camera.
+ The StreamProfiles data structures are ghastly, mixing up streams of different fundamental types.
+ (e.g. a depth stream is a VideoStream, when there's nothing 'video' about it at all).
+ This is a more platable version for human consumption.
+ Also, only take BGR8 streams, we don't know how to deal with the others.
+ The stream in .Net actually is RGB8, but the wrapper seems to get it the other way around, presumably an endianness issue
+ </summary>
+</member>
+<member name="P:Calibrator.Camera.ColourIntrinsics">
+ <summary>
+ Colour sensor intrinsics
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:Calibrator.Camera.ColourSensor">
+ <summary>
+ The colour sensor of this camera.
+ We only support a single colour sensor.
+ </summary>
+</member>
+<member name="P:Calibrator.Camera.ColourSettings">
+ <summary>
+ The colour sensor settings
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:Calibrator.Camera.DepthFormats">
+ <summary>
+ The depth sensor's formats.
+ See comments about colour formats above.
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:Calibrator.Camera.DepthSensor">
+ <summary>
+ The depth sensor of this camera.
+ We only support a single depth sensor.
+ </summary>
+</member>
+<member name="M:Calibrator.Camera.FrameGrabber">
+ <summary>
+ Prepare the colour / depth sensors and start a FrameProcessor to stream the data.
+ The actual frame processing code is in a separate source file to ease readability.
+ </summary>
+</member>
+<member name="P:Calibrator.Camera.Framerate">
+ <summary>
+ The desired framerate, when starting the camera
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Calibrator.Camera.FrameToBitmap(Intel.RealSense.VideoFrame)">
+ <summary>
+ Convert a VideoFrame into a windows bitmap
+ </summary>
+ <param name="frame"></param>
+ <returns></returns>
+</member>
+<member name="P:Calibrator.Camera.Info(Intel.RealSense.CameraInfo)">
+ <summary>
+ Shorthand to get device info
+ </summary>
+</member>
+<member name="P:Calibrator.Camera.Name">
+ <summary>
+ The camera's name.
+ This is NOT unique, see UniqueName
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Calibrator.Camera.StopStreaming">
+ <summary>
+ Stop a running camera.
+ As the frame processor is running on its own thread, ask it to stop by signalling the cancellation token
+ and wait for it to do so with a semaphore.
+ </summary>
+</member>
+<member name="T:Calibrator.Decoration">
+ <summary>
+ A geometrical figure, annotation drawn on a bitmap
+ </summary>
+</member>
+<member name="T:Calibrator.DecorationCircle">
+ <summary>
+ A circle drawn on a bitmap
+ </summary>
+</member>
+<member name="T:Calibrator.DecorationLine">
+ <summary>
+ A Line drawn on a bitmap
+ </summary>
+</member>
+<member name="T:Calibrator.DecorationText">
+ <summary>
+ A Text drawn on a bitmap
+ </summary>
+</member>
+<member name="T:Calibrator.Model">
+ <summary>
+ Statistical representation of a camera's intrinsics and extrinsics.
+ </summary>
+</member>
+<member name="P:Calibrator.Model.Camera">
+ <summary>
+ The camera that we're modelling
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:Calibrator.Model.Deviation">
+ <summary>
+ The horizontal deviation of the camera relative to the targets.
+ </summary>
+ <returns>Radians, positive = The camera is pointing to the right of the target's centre</returns>
+</member>
+<member name="P:Calibrator.Model.HCentre">
+ <summary>
+ The centre (pixel) column of the camera.
+ </summary>
+ <returns>A real value; if the camera has an even number of columns there is no integer centre column</returns>
+</member>
+<member name="P:Calibrator.Model.HFov">
+ <summary>
+ Horizontal field of view
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:Calibrator.Model.HFov2">
+ <summary>
+ Half the horizontal field of view
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:Calibrator.Model.HPixel">
+ <summary>
+ The width of a pixel
+ </summary>
+ <returns>real-world units</returns>
+</member>
+<member name="P:Calibrator.Model.HPixels">
+ <summary>
+ The number of columns
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:Calibrator.Model.HSize">
+ <summary>
+ The horizontal size of the image.
+ AKA Fx
+ </summary>
+</member>
+<member name="P:Calibrator.Model.Inclination">
+ <summary>
+ The up/down inclination of the camera relative to the targets.
+ </summary>
+ <returns>Radians, positive = The camera is pointing to above the target</returns>
+</member>
+<member name="P:Calibrator.Model.Planes">
+ <summary>
+ The Planes measured so far
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:Calibrator.Model.Predict(System.Double,System.Double,System.Double)">
+ <summary>
+ Calculate the coordinates, in mm, of a 3Dpoint in space in front of the camera,
+ given the row, column and range.
+ </summary>
+</member>
+<member name="P:Calibrator.Model.QuadraticA">
+ <summary>
+ The 'A' value - the squared part - of the quadratic correction of the Z values
+ </summary>
+</member>
+<member name="P:Calibrator.Model.QuadraticB">
+ <summary>
+ The 'B' value - the linear part - of the quadratic correction of the Z values
+ </summary>
+</member>
+<member name="P:Calibrator.Model.QuadraticC">
+ <summary>
+ The 'C' value - the distance of the from the front of the camera glass to the depthmap focal point.
+ Positive = behind the glass (it usually is).
+ </summary>
+</member>
+<member name="P:Calibrator.Model.AverageError">
+ <summary>
+ The average measurement error for all targets of all planes
+ </summary>
+</member>
+<member name="P:Calibrator.Model.AverageError(Calibrator.Plane)">
+ <summary>
+ The average measurement error for all targets of a single plane
+ </summary>
+</member>
+<member name="P:Calibrator.Model.TotalErrorSquared">
+ <summary>
+ Total error, squared, used solely by the optimiser
+ </summary>
+</member>
+<member name="P:Calibrator.Model.VCentre">
+ <summary>
+ The vertical (pixel) centre.
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:Calibrator.Model.VFov">
+ <summary>
+ Vertical field of view
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:Calibrator.Model.VFov2">
+ <summary>
+ Half the vertical field of view
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:Calibrator.Model.VPixel">
+ <summary>
+ The height of a pixel
+ </summary>
+ <returns>real-world units</returns>
+</member>
+<member name="P:Calibrator.Model.VPixels">
+ <summary>
+ The number of vertical pixels, or rows
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:Calibrator.Model.VSize">
+ <summary>
+ The vertical size of the image.
+ AKA Fy
+ </summary>
+</member>
+<member name="M:Calibrator.Model.Optimise(System.Action{Calibrator.Model})">
+ <summary>
+ Using the values of a model, determine the optimal values for the 7 variables.
+ Logs Info messages once a second to report progress.
+ 
+ This uses the brilliant NLOpt https://nlopt.readthedocs.io/en/latest/ package.
+ I tried all the optimisers; they all produced correct results but Nelder-Mead was an order of magniture
+ faster than the others.
+ 
+ </summary>
+ <param name="callback">A "Sub(model as Model)" that is called when the optimisation has finished.</param>
+</member>
+<member name="T:Calibrator.Statistic">
+ <summary>
+ Helper to hold and calculate statistics about measurements: Min, Max, Mean, Variance and Standard Deviation.
+ Uses Welford's method, much more efficient and accurate.
+ </summary>
+</member>
+<member name="T:Calibrator.DepthMap">
+ <summary>
+ Depthmap with facilities to access by row and column
+ </summary>
+</member>
+<member name="T:Calibrator.Plane">
+ <summary>
+ Represents our piece of wood with 5 targets at a certain distance from the camera.
+ </summary>
+</member>
+<member name="M:Calibrator.Plane.FindTargets(System.Drawing.Bitmap)">
+ <summary>
+ Find the 5 targets on the plane by looking for red pixels and then improving the red circles.
+ We find the middle circle first and then the corners by moving at a diagonal proportional to the widht/height ratio of the target.
+ </summary>
+ <param name="colour">The colour bitmap, picture of the plane we are examining</param>
+ <returns>True if all 5 targets were found</returns>
+</member>
+<member name="M:Calibrator.Plane.ImproveTargets(System.Drawing.Bitmap,Calibrator.DepthMap)">
+ <summary>
+ Once the targets have been found, try to find further red pixels.
+ This is necessary due to noise in the colour images.
+ </summary>
+ <param name="colour">The colour bitmap, picture of the plane we are examining</param>
+ <param name="depthmap">The corresponding depthmap to be updated</param>
+</member>
+<member name="P:Calibrator.Plane.MeanZ">
+ <summary>
+ The average Z distance for all pixels of all 5 targets on this plane
+ </summary>
+</member>
+<member name="M:Calibrator.Plane.Measure(Calibrator.DepthMap)">
+ <summary>
+ Update the Z statistics of the red pixels of all 5 targets on this plane
+ </summary>
+ <param name="depthmap">The depthmap with the statistics to be updated</param>
+</member>
+<member name="P:Calibrator.Plane.Measuring">
+ <summary>
+ We are currently in the process of measuring and improving the depthmap
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:Calibrator.Plane.Offset(Calibrator.Model)">
+ <summary>
+ The X,Y offset of the central target of this plane
+ </summary>
+ <param name="model"></param>
+ <returns></returns>
+</member>
+<member name="M:Calibrator.Plane.Reset">
+ <summary>
+ Set all the statistics back to zero
+ </summary>
+</member>
+<member name="P:Calibrator.Plane.Samples">
+ <summary>
+ The total number of measurements made for all 5 targets on this plane
+ </summary>
+</member>
+<member name="P:Calibrator.Plane.Sigma">
+ <summary>
+ The standard deviation of all the measurements made for all 5 targets on this plane
+ </summary>
+</member>
+<member name="P:Calibrator.Plane.TargetHeight">
+ <summary>
+ The distance in mm between the centres of the top and bottom red targets
+ </summary>
+ <returns>mm</returns>
+</member>
+<member name="P:Calibrator.Plane.TargetWidth">
+ <summary>
+ The distance in mm between the centres of the left and right red targets
+ </summary>
+ <returns>mm</returns>
+</member>
+<member name="P:Calibrator.Plane.Truth">
+ <summary>
+ The true distance from the camera's glass to the centre of this plane (measured with a ruler)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Calibrator.Bresenham_.Bresenham(System.Windows.Point,System.Windows.Point)">
+ <summary>
+ Get a line of pixels between two 2D points.
+ </summary>
+ <param name="a">Start point</param>
+ <param name="b">Finish point</param>
+ <returns>Shortest possible list of points from a to b whe each pixel touches the next one</returns>
+</member>
+<member name="T:Calibrator.Clock">
+ <summary>
+ Convenience timer that expires at regular intervals
+ </summary>
+</member>
+<member name="M:Calibrator.Distance_.Distance(System.Int32,System.Int32,System.Int32,System.Int32)">
+ <summary>
+ Calculate the distance between 2 2D points
+ </summary>
+</member>
+<member name="T:Calibrator.FrameProcessor">
+ <summary>
+ Apply selected filters to the depth frame, build a composite frame with the result
+ and the colour frame, align them and raise a FrameReady event.
+ Cribbed from cs-tutorial-3-processing example inside the csharp wrapper folder of librealsense
+ </summary>
+</member>
+<member name="T:Calibrator.RedPixel">
+ <summary>
+ A red pixel on a target, on a plane.
+ By making a large number of measurements, we can gather accurate statistics about the Z distance.
+ </summary>
+</member>
+<member name="T:Calibrator.SensorSetting">
+ <summary>
+ An easier-to-use sensor setting (than the RealSense Enum)
+ </summary>
+</member>
+<member name="T:Calibrator.Session">
+ <summary>
+ Represents a camera-calibrating session, where we take measurements of targets at various distances,
+ to try and establish the camera intrinsics
+ </summary>
+</member>
+<member name="P:Calibrator.Session.Camera">
+ <summary>
+ The active camera, the one we are currently measuring
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:Calibrator.Session.Cameras">
+ <summary>
+ All the RealSense cameras connected to this PC
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Calibrator.Session.Crosshairs(System.Drawing.Bitmap)">
+ <summary>
+ Draw LightSkyBlue crosshairs on a bitmap, to help aligning the plane
+ </summary>
+ <param name="bitmap"></param>
+ <returns></returns>
+</member>
+<member name="M:Calibrator.Session.FindTargets(System.Double,System.Double,System.Double)">
+ <summary>
+ Find the 5 targets on the current plane
+ </summary>
+ <param name="range">mm</param>
+ <param name="targetwidth">mm</param>
+ <param name="targetheight">mm</param>
+</member>
+<member name="M:Calibrator.Session.Idle">
+ <summary>
+ Go back to 'Idle' mode (no finding targets of measuring)
+ </summary>
+</member>
+<member name="M:Calibrator.Session.Load(System.String)">
+ <summary>
+ Load a previously-saved session's data, to continue working with it
+ </summary>
+ <param name="filename"></param>
+</member>
+<member name="M:Calibrator.Session.Measure">
+ <summary>
+ Start measuring the current plane
+ </summary>
+</member>
+<member name="M:Calibrator.Session.Optimise(System.Action{Calibrator.Model})">
+ <summary>
+ Optimise the current model
+ </summary>
+ <param name="callback"></param>
+</member>
+<member name="M:Calibrator.Session.RestartCamera">
+ <summary>
+ Restart the camera (after a parameter change)
+ </summary>
+</member>
+<member name="M:Calibrator.Session.Save(System.String)">
+ <summary>
+ Save the solution and create the CSV files with the magic numbers
+ </summary>
+ <param name="filename"></param>
+</member>
+<member name="M:Calibrator.Session.StartCamera">
+ <summary>
+ Start (a previously-idle) cam3era
+ </summary>
+</member>
+<member name="P:Calibrator.Session.State">
+ <summary>
+ What we are currently doing
+ </summary>
+ <returns></returns>
+</member>
+<member name="T:Calibrator.StreamFormat">
+ <summary>
+ Helper for sorting, comparing and displaying stream formats
+ </summary>
+</member>
+<member name="T:Calibrator.Position">
+ <summary>
+ Where this tartget is on the plane.
+ This is (and has to be) thread-safe, we update in parallel.
+ </summary>
+</member>
+<member name="T:Calibrator.Target">
+ <summary>
+ Represents a circle of red pixels
+ </summary>
+</member>
+<member name="M:Calibrator.Between_.Between(System.Double,System.Double,System.Double)">
+ <summary>
+ Determine if a value is in a certain range
+ </summary>
+ <param name="x">the value</param>
+ <param name="min">the minimum</param>
+ <param name="max">the maximum</param>
+ <returns>TRUE if value is strictly with min...max</returns>
+</member>
+<member name="T:Calibrator.ComboBoxItem`1">
+ <summary>
+ Helper for populating comboboxes
+ </summary>
+ <typeparam name="T"></typeparam>
+</member>
+<member name="M:Calibrator.Ensure64Bit_.Ensure64Bit(System.Object)">
+ <summary>
+ Throw an exception if the assembly containg an object is not 64-bit.
+ </summary>
+ <param name="o"></param>
+</member>
+<member name="M:Calibrator.Extensions.ToPointf(System.Windows.Point)">
+ <summary>
+ Convenience functions, to ease coding and readability (by avoiding CSng, Convert.ToXXX etc.)
+ </summary>
+</member>
+<member name="T:Calibrator.FastPixel">
+ <summary>
+ Hack to quickly access individual pixels of a bitmap
+ </summary>
+</member>
+<member name="M:Calibrator.FOVConversions.F2FOV(System.Double,System.Double)">
+ <summary>
+ Convert to/from 'F' values and fields-of-view
+ </summary>
+</member>
+<member name="M:Calibrator.GDIBestQuality_.GDIBestQuality(System.Drawing.Graphics)">
+ <summary>
+ Set the best possible GDI quality
+ </summary>
+ <param name="g">The Graphics to improve</param>
+</member>
+<member name="T:Calibrator.HashCodeNoOverflow_">
+ <summary>
+ Hascode 32/64 bit hack
+ </summary>
+</member>
+<member name="M:Calibrator.JaggedArrays.CreateJaggedArray``1(System.Int32[])">
+ <summary>
+ Create and initialise arbitrary jagged arrays
+ </summary>
+</member>
+<member name="T:Calibrator.RowColRangeToPoint_">
+ <summary>
+ Template code to determine 3D point from Row, Column and Depth
+ </summary>
+</member>
+<member name="M:Calibrator.Normalise_.Normalise(System.Drawing.Color)">
+ <summary>
+ Normalise an RGB colour
+ </summary>
+</member>
+<member name="T:Calibrator.HSV">
+ <summary>
+ An HSV value
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:Calibrator.RGBHSV">
+ <summary>
+ Convert between RGB an HSV
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:Calibrator.RGBHSV.ColorToHSV(System.Drawing.Color)">
+ <summary>
+ Convert a System.Color to an HSV value
+ </summary>
+ <param name="color">any colour</param>
+ <returns>the HSV equivalent</returns>
+ <remarks>Converting between RGB and HSV always works, but it is not guaranteed to be reflexive.
+ IOW, converting colour C to an HSV value H and then converting H back to C doesn't always
+ give the original value
+ </remarks>
+</member>
+<member name="M:Calibrator.RGBHSV.HSVToColour(Calibrator.HSV)">
+ <summary>
+ Convert an HSV value to a System.Color
+ </summary>
+ <param name="hsv">an HSV value</param>
+ <returns>the corresponding colour</returns>
+ <remarks>Converting between RGB and HSV always works, but it is not guaranteed to be reflexive.
+ IOW, converting colour C to an HSV value H and then converting H back to C doesn't always
+ give the original value
+ </remarks>
+</member>
+<member name="T:Calibrator.RowCol">
+ <summary>
+ Convenience class to hold rows and columns.
+ Identical to a 2D point, but with nicer names
+ </summary>
+</member>
+<member name="M:Calibrator.Spiral_.Spiral(System.Int32@)">
+ <summary>
+ O(1) function to get successive points on a spiral.
+ https://stackoverflow.com/questions/398299/looping-in-a-spiral
+ </summary>
+ <param name="n">The number of the desired point. 0= the first one</param>
+ <returns>Next RowCol on the spiral (and updates N)</returns>
+</member>
+<member name="T:Calibrator.UniqueList`1">
+ <summary>
+ A list which won't contain any duplicates
+ </summary>
+ <typeparam name="T">Must implement IEquatable(Of T)</typeparam>
+</member>
+<member name="T:Calibrator.VCamera">
+ <summary>
+ Represents a camera; either a real camera or a synthetic camera whose intrinsics we are trying to find
+ </summary>
+</member>
+<member name="M:Calibrator.VCamera.#ctor(System.String,System.Int32,System.Int32,System.Double,System.Double)">
+ <summary>
+ Create a new real camera
+ </summary>
+ <param name="name"></param>
+ <param name="Width">Horizontal number of pixels</param>
+ <param name="Height">Vertical number of pixels</param>
+ <param name="hfov">Horizontal field of view</param>
+ <param name="vfov">Vertical field of view</param>
+</member>
+<member name="M:Calibrator.VCamera.#ctor(Calibrator.VCamera)">
+ <summary>
+ Create a synthetic camera from an existing camera
+ </summary>
+ <param name="model">The existing camera</param>
+</member>
+<member name="P:Calibrator.VCamera.Width">
+ <summary>
+ Horizontal number of pixels
+ </summary>
+</member>
+<member name="P:Calibrator.VCamera.HFov">
+ <summary>
+ Horizontal field of view
+ </summary>
+</member>
+<member name="P:Calibrator.VCamera.HPixel">
+ <summary>
+ The width of a pixel, in 'units'.
+ There are 99 intervals between 100 pixels, thus the '-1'
+ </summary>
+</member>
+<member name="P:Calibrator.VCamera.HSize">
+ <summary>
+ Horizontal aspect ratio; the number of units across at 1 unit away from the camera
+ </summary>
+</member>
+<member name="P:Calibrator.VCamera.Height">
+ <summary>
+ Vertical number of pixels
+ </summary>
+</member>
+<member name="P:Calibrator.VCamera.VFov">
+ <summary>
+ Vertical field of view
+ </summary>
+</member>
+<member name="P:Calibrator.VCamera.VPixel">
+ <summary>
+ The height of a pixel, in 'units'
+ There are 99 intervals between 100 pixels, thus the '-1'
+ </summary>
+</member>
+<member name="P:Calibrator.VCamera.VSize">
+ <summary>
+ Vertical aspect ratio; the number of units up/down at 1 unit away from the camera
+ </summary>
+</member>
+<member name="T:Calibrator.Cameras">
+ <summary>
+ Represents the cameras currently connected to the PC
+ </summary>
+</member>
+<member name="M:Calibrator.GetExecutingPath_.GetExecutingPath">
+ <summary>
+ Get the path to the currently executing assembly
+ </summary>
+ <returns>Path, without the leading "file:", without any leading "\" and without any trailing "\"</returns>
+</member>
+<member name="M:Calibrator.Unique_.Unique">
+ <summary>
+ Return a unique, negative number in a thread-safe manner
+ </summary>
+ <remarks>This function is thread-safe</remarks>
+</member>
+</members>
+</doc>

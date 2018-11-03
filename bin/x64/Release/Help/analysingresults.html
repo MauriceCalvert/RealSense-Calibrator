@@ -1,0 +1,144 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<title>Using the calibration results</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<link type="text/css" rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <h1>RealSense Calibrator - Using the calibration results</h1>
+    <p>The formulas below are explained in more detail <a href="http://www.calvert.ch/maurice/2018/11/01/realsense-cameras-calculating-3d-coordinates-from-depth-row-and-column">here</a>.</p>
+    <p>The first CSV file, suffixed 'Trinsics' contains the camera's name and serial number, followed by the 7 optimised (and hopefully optimal) parameters:</p>
+    <ol>
+        <li>
+            <b>HPixels</b> The number of horizontal pixels in the depthcamera's images. The width.
+        </li>
+        <li>
+            <b>VPixels</b> The number of vertical pixels in the depthcamera's images. The height.
+        </li>
+        <li>
+            <b>HFov</b> The horizontal field of view in radians.
+        </li>
+        <li>
+            <b>VFov</b> The vertical field of view in radians.
+        </li>
+        <li>
+            <b>Inclination</b> The vertical angle of the line from the camera's centre to the middle red circle. Positive = pointing upwards, above the horizon.
+        </li>
+        <li>
+            <b>Deviation</b> The horizontal angle of the line from the camera's centre to the middle red circle. Positive = pointing rightwards.
+        </li>
+        <li>
+            <b>A</b> The 'A' factor in the quadratic Z correction.
+        </li>
+        <li>
+            <b>B</b> The 'B' factor in the quadratic Z correction.
+        </li>
+        <li>
+            <b>C</b> The 'C' factor in the quadratic Z correction. This is the distance of the depthmap's focal point relative to the front glass of the camera. Positive = behind the glass.
+        </li>
+    </ol>
+    Using the values from the preceding example:
+    <table>
+        <tr>
+            <th>HPixels</th>
+            <th>VPixels</th>
+            <th>HFov</th>
+            <th>VFov</th>
+            <th>Inclination</th>
+            <th>Deviation</th>
+            <th>A</th>
+            <th>B</th>
+            <th>C</th>
+        </tr>
+        <tr>
+            <td>848</td>
+            <td>480</td>
+            <td>1.52723940226235</td>
+            <td>1.00013130431485</td>
+            <td>-0.0237527506652386</td>
+            <td>0.0112960559855201</td>
+            <td>-1.96355121038795E-05</td>
+            <td>-0.0217963791803833</td>
+            <td>5.91108175482591</td>
+        </tr>
+    </table>
+    The code to calculate the the 3D point from row, column and range is, in VB.Net:
+    <pre><code>
+    Imports System.Math
+    Imports System.Windows.Media.Media3D
+
+    Module RowColRangeToPoint_
+        Const Cols As Integer = 848
+        Const Rows As Integer = 480
+        Const HFov As Double = 1.52723940226235
+        Const VFov As Double = 1.00013130431485
+        Const A As Double = -0.0000196355121038795
+        Const B As Double = -0.0217963791803833
+        Const C As Double = 5.91108175482591
+
+        Const VCentre As Double = (Rows - 1) / 2
+        Const HCentre As Double = (Cols - 1) / 2
+        Const HFov2 As Double = HFov / 2
+        Const VFov2 As Double = HFov / 2
+        Private ReadOnly Property VSize As Double = Tan(VFov / 2) * 2
+        Private ReadOnly Property HSize As Double = Tan(HFov / 2) * 2
+        Private ReadOnly Property VPixel As Double = VSize / (Rows - 1)
+        Private ReadOnly Property HPixel As Double = HSize / (Cols - 1)
+
+        Public Function RowColRangeToPoint(row As Double, col As Double, range As Double) As Point3D
+            Dim vratio As Double = (VCentre - row) * VPixel
+            Dim hratio As Double = (col - HCentre) * HPixel
+            Dim z As Double = range + A * range * range + B * range + C
+            Dim y As Double = range * -vratio
+            Dim x As Double = range * hratio
+            Return New Point3D(x, y, z)
+        End Function
+    End Module
+</code></pre>
+    or in C#:
+<pre><code>
+    using System;
+    using System.Math;
+    using System.Windows.Media.Media3D;
+
+    static class RowColRangeToPoint_  {
+        const static int Cols = 848;
+        const static int Rows = 480;
+        const static double HFov = 1.52723940226235;
+        const static double VFov = 1.00013130431485;
+        const static double VCentre = (Rows - 1) / (double)2;
+        const static double HCentre = (Cols - 1) / (double)2;
+        const static double A = -0.0000196355121038795;
+        const static double B = -0.0217963791803833;
+        const static double C = 5.91108175482591;
+
+        const static double HFov2 = HFov / 2;
+        const static double VFov2 = HFov / 2;
+        private static double VSize { get; } = Math.Tan(VFov / 2) * 2;
+        private static double HSize { get; } = Math.Tan(HFov / 2) * 2;
+        private static double VPixel { get; } = VSize / (Rows - 1);
+        private static double HPixel { get; } = HSize / (Cols - 1);
+
+        public static Point3D RowColRangeToPoint(double row, double col, double range) {
+            double vratio = (VCentre - row) * VPixel;
+            double hratio = (col - HCentre) * HPixel;
+            double z = range + A * range * range + B * range + C;
+            double y = range * -vratio;
+            double x = range * hratio;
+            return new Point3D(x, y, z);
+        }
+    }
+
+</code></pre>
+    <p>
+        The second CSV file, suffixed Planes, contains the averaged input data to the optimisation. The fields should be self-explanatory;
+        'sigma' is the Standard Deviation. You can use this data to create your own graphs.
+    </p>
+    <p>
+        The XML file contains the serialised data structures, which allows you to re-load a set of measurements and continue working with them.
+    </p>
+    <p>Up: <a href="index.html">Home</a></p>
+    <p>Previous: <a href="firstcalibration.html">Performing your first calibration</a></p>
+</body>
+</html>

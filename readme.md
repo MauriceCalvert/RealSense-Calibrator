@@ -1,4 +1,4 @@
-# Intel RealSense camera Calibrator
+# Intel RealSense Camera Calibrator
 
 Tool to significantly improve the depth accuracy of Intel RealSense cameras, by calibrating the depth stream itself and compensating for non-linearities.
 

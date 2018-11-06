@@ -94,27 +94,27 @@ Public Class Model
     ''' </summary>
     Friend ReadOnly Property Predict(row As Double, col As Double, range As Double) As Point3D
         Get
-            Dim vratio As Double = (VCentre - row) * VPixel
-            Dim hratio As Double = (col - HCentre) * HPixel
-            Dim z As Double = range + QuadraticA * range * range + QuadraticB * range + QuadraticC
-            Dim y As Double = range * -vratio
-            Dim x As Double = range * hratio
+            Dim voffset As Double = VCentre - row
+            Dim vratio As Double = voffset * VPixel
+            Dim vangle As Double = -Atan(vratio) - Inclination
+            Dim hyp As Double = range / Cos(Inclination - vangle)
+            Dim ground As Double = hyp * Cos(vangle)
+            Dim hoffset As Double = col - HCentre
+            Dim hratio As Double = hoffset * HPixel
+            Dim hangle As Double = Atan(hratio) + Deviation
+            Dim z As Double = ground + QuadraticA * ground * ground + QuadraticB * ground + QuadraticC
+            Dim y As Double = ground * Tan(vangle)
+            Dim x As Double = ground * Tan(hangle)
             Return New Point3D(x, y, z)
         End Get
     End Property
-    'Friend ReadOnly Property PredictOld(row As Double, col As Double, range As Double) As Point3D
+    'Friend ReadOnly Property Predict(row As Double, col As Double, range As Double) As Point3D
     '    Get
-    '        Dim voffset As Double = VCentre - row
-    '        Dim vratio As Double = voffset * VPixel
-    '        Dim vangle As Double = -Atan(vratio) - Inclination
-    '        Dim hyp As Double = range / Cos(Inclination - vangle)
-    '        Dim ground As Double = hyp * Cos(vangle)
-    '        Dim hoffset As Double = col - HCentre
-    '        Dim hratio As Double = hoffset * HPixel
-    '        Dim hangle As Double = Atan(hratio) + Deviation
-    '        Dim z As Double = ground + QuadraticA * ground * ground + QuadraticB * ground + QuadraticC
-    '        Dim y As Double = ground * Tan(vangle)
-    '        Dim x As Double = ground * Tan(hangle)
+    '        Dim vratio As Double = (VCentre - row) * VPixel
+    '        Dim hratio As Double = (col - HCentre) * HPixel
+    '        Dim z As Double = range + QuadraticA * range * range + QuadraticB * range + QuadraticC
+    '        Dim y As Double = range * -vratio
+    '        Dim x As Double = range * hratio
     '        Return New Point3D(x, y, z)
     '    End Get
     'End Property

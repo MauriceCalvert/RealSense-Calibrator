@@ -1,6 +1,6 @@
 ﻿Imports System.Windows
 Imports System.Windows.Media.Media3D
-Module Extensions
+Public Module Extensions
 
     ''' <summary>
     ''' Convenience functions, to ease coding and readability (by avoiding CSng, Convert.ToXXX etc.)

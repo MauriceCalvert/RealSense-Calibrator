@@ -35,6 +35,12 @@ Partial Class Main
         Me.lblLoglevel = New System.Windows.Forms.Label()
         Me.cmbLogLevel = New System.Windows.Forms.ComboBox()
         Me.MyGroupBox4 = New UI.MyGroupBox()
+        Me.txtFloorHeight = New System.Windows.Forms.TextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.txtFloorAngleD = New System.Windows.Forms.TextBox()
+        Me.txtFloorAngle = New System.Windows.Forms.TextBox()
+        Me.Label8 = New System.Windows.Forms.Label()
         Me.Label32 = New System.Windows.Forms.Label()
         Me.txtCamAverageError = New System.Windows.Forms.TextBox()
         Me.Label31 = New System.Windows.Forms.Label()
@@ -72,7 +78,7 @@ Partial Class Main
         Me.Label15 = New System.Windows.Forms.Label()
         Me.dgvMeasures = New System.Windows.Forms.DataGridView()
         Me.Truth = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.MeanZ = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.MeanRange = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Sigma = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Samples = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.MyGroupBox2 = New UI.MyGroupBox()
@@ -117,11 +123,15 @@ Partial Class Main
         Me.CrosshairsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FindTargetsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MeasureToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FindRowToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FindFloorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FinaliseMeasurementToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.OptimiseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ChartToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GuideToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.txtPixelAspectRatio = New System.Windows.Forms.TextBox()
+        Me.Label33 = New System.Windows.Forms.Label()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -191,6 +201,14 @@ Partial Class Main
         Me.MyGroupBox4.BorderColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.MyGroupBox4.BorderRadius = 5
         Me.MyGroupBox4.BorderWidth = 1.8!
+        Me.MyGroupBox4.Controls.Add(Me.txtPixelAspectRatio)
+        Me.MyGroupBox4.Controls.Add(Me.Label33)
+        Me.MyGroupBox4.Controls.Add(Me.txtFloorHeight)
+        Me.MyGroupBox4.Controls.Add(Me.Label10)
+        Me.MyGroupBox4.Controls.Add(Me.Label7)
+        Me.MyGroupBox4.Controls.Add(Me.txtFloorAngleD)
+        Me.MyGroupBox4.Controls.Add(Me.txtFloorAngle)
+        Me.MyGroupBox4.Controls.Add(Me.Label8)
         Me.MyGroupBox4.Controls.Add(Me.Label32)
         Me.MyGroupBox4.Controls.Add(Me.txtCamAverageError)
         Me.MyGroupBox4.Controls.Add(Me.Label31)
@@ -234,6 +252,82 @@ Partial Class Main
         Me.MyGroupBox4.TabIndex = 102
         Me.MyGroupBox4.TabStop = False
         Me.MyGroupBox4.Text = "Results"
+        '
+        'txtFloorHeight
+        '
+        Me.txtFloorHeight.BackColor = System.Drawing.Color.Black
+        Me.txtFloorHeight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtFloorHeight.ForeColor = System.Drawing.Color.White
+        Me.txtFloorHeight.Location = New System.Drawing.Point(308, 195)
+        Me.txtFloorHeight.Name = "txtFloorHeight"
+        Me.txtFloorHeight.ReadOnly = True
+        Me.txtFloorHeight.Size = New System.Drawing.Size(98, 20)
+        Me.txtFloorHeight.TabIndex = 132
+        Me.txtFloorHeight.TabStop = False
+        Me.txtFloorHeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.ToolTip1.SetToolTip(Me.txtFloorHeight, "Calculated Vertical deviation, camera centre versus target centre, in radians (ne" &
+        "gative=upwards)")
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.ForeColor = System.Drawing.Color.White
+        Me.Label10.Location = New System.Drawing.Point(240, 197)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(62, 13)
+        Me.Label10.TabIndex = 133
+        Me.Label10.Text = "Floor height"
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.ForeColor = System.Drawing.Color.White
+        Me.Label7.Location = New System.Drawing.Point(516, 171)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(11, 13)
+        Me.Label7.TabIndex = 131
+        Me.Label7.Text = "°"
+        Me.Label7.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        '
+        'txtFloorAngleD
+        '
+        Me.txtFloorAngleD.BackColor = System.Drawing.Color.Black
+        Me.txtFloorAngleD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtFloorAngleD.ForeColor = System.Drawing.Color.White
+        Me.txtFloorAngleD.Location = New System.Drawing.Point(412, 167)
+        Me.txtFloorAngleD.Name = "txtFloorAngleD"
+        Me.txtFloorAngleD.ReadOnly = True
+        Me.txtFloorAngleD.Size = New System.Drawing.Size(98, 20)
+        Me.txtFloorAngleD.TabIndex = 129
+        Me.txtFloorAngleD.TabStop = False
+        Me.txtFloorAngleD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.ToolTip1.SetToolTip(Me.txtFloorAngleD, "Calculated Vertical deviation, camera centre versus target centre, in degrees (ne" &
+        "gative=upwards)")
+        '
+        'txtFloorAngle
+        '
+        Me.txtFloorAngle.BackColor = System.Drawing.Color.Black
+        Me.txtFloorAngle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtFloorAngle.ForeColor = System.Drawing.Color.White
+        Me.txtFloorAngle.Location = New System.Drawing.Point(308, 167)
+        Me.txtFloorAngle.Name = "txtFloorAngle"
+        Me.txtFloorAngle.ReadOnly = True
+        Me.txtFloorAngle.Size = New System.Drawing.Size(98, 20)
+        Me.txtFloorAngle.TabIndex = 128
+        Me.txtFloorAngle.TabStop = False
+        Me.txtFloorAngle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.ToolTip1.SetToolTip(Me.txtFloorAngle, "Calculated Vertical deviation, camera centre versus target centre, in radians (ne" &
+        "gative=upwards)")
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.ForeColor = System.Drawing.Color.White
+        Me.Label8.Location = New System.Drawing.Point(243, 171)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(59, 13)
+        Me.Label8.TabIndex = 130
+        Me.Label8.Text = "Floor angle"
         '
         'Label32
         '
@@ -684,7 +778,7 @@ Partial Class Main
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgvMeasures.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvMeasures.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvMeasures.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Truth, Me.MeanZ, Me.Sigma, Me.Samples})
+        Me.dgvMeasures.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Truth, Me.MeanRange, Me.Sigma, Me.Samples})
         DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
         DataGridViewCellStyle6.BackColor = System.Drawing.Color.Black
         DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -724,18 +818,18 @@ Partial Class Main
         Me.Truth.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
         Me.Truth.Width = 50
         '
-        'MeanZ
+        'MeanRange
         '
-        Me.MeanZ.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.MeanZ.DataPropertyName = "MeanZ"
+        Me.MeanRange.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.MeanRange.DataPropertyName = "MeanRange"
         DataGridViewCellStyle3.Format = "#,##0.000"
-        Me.MeanZ.DefaultCellStyle = DataGridViewCellStyle3
-        Me.MeanZ.HeaderText = "Mean Z"
-        Me.MeanZ.MinimumWidth = 50
-        Me.MeanZ.Name = "MeanZ"
-        Me.MeanZ.ReadOnly = True
-        Me.MeanZ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.MeanZ.Width = 50
+        Me.MeanRange.DefaultCellStyle = DataGridViewCellStyle3
+        Me.MeanRange.HeaderText = "Mean Z"
+        Me.MeanRange.MinimumWidth = 50
+        Me.MeanRange.Name = "MeanRange"
+        Me.MeanRange.ReadOnly = True
+        Me.MeanRange.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.MeanRange.Width = 50
         '
         'Sigma
         '
@@ -1188,7 +1282,7 @@ Partial Class Main
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.CrosshairsToolStripMenuItem, Me.FindTargetsToolStripMenuItem, Me.MeasureToolStripMenuItem, Me.FinaliseMeasurementToolStripMenuItem, Me.OptimiseToolStripMenuItem, Me.ChartToolStripMenuItem, Me.AboutToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.CrosshairsToolStripMenuItem, Me.FindTargetsToolStripMenuItem, Me.MeasureToolStripMenuItem, Me.FindRowToolStripMenuItem, Me.FindFloorToolStripMenuItem, Me.FinaliseMeasurementToolStripMenuItem, Me.OptimiseToolStripMenuItem, Me.ChartToolStripMenuItem, Me.AboutToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
@@ -1252,6 +1346,20 @@ Partial Class Main
         Me.MeasureToolStripMenuItem.Text = "&Measure"
         Me.MeasureToolStripMenuItem.ToolTipText = "Measure the distances, calculating the statistics"
         '
+        'FindRowToolStripMenuItem
+        '
+        Me.FindRowToolStripMenuItem.ForeColor = System.Drawing.Color.LightSkyBlue
+        Me.FindRowToolStripMenuItem.Name = "FindRowToolStripMenuItem"
+        Me.FindRowToolStripMenuItem.Size = New System.Drawing.Size(68, 20)
+        Me.FindRowToolStripMenuItem.Text = "Find Row"
+        '
+        'FindFloorToolStripMenuItem
+        '
+        Me.FindFloorToolStripMenuItem.ForeColor = System.Drawing.Color.LightSkyBlue
+        Me.FindFloorToolStripMenuItem.Name = "FindFloorToolStripMenuItem"
+        Me.FindFloorToolStripMenuItem.Size = New System.Drawing.Size(72, 20)
+        Me.FindFloorToolStripMenuItem.Text = "Find Floor"
+        '
         'FinaliseMeasurementToolStripMenuItem
         '
         Me.FinaliseMeasurementToolStripMenuItem.ForeColor = System.Drawing.Color.LightSkyBlue
@@ -1290,8 +1398,33 @@ Partial Class Main
         '
         Me.GuideToolStripMenuItem.ForeColor = System.Drawing.Color.LightSkyBlue
         Me.GuideToolStripMenuItem.Name = "GuideToolStripMenuItem"
-        Me.GuideToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.GuideToolStripMenuItem.Size = New System.Drawing.Size(105, 22)
         Me.GuideToolStripMenuItem.Text = "&Guide"
+        '
+        'txtPixelAspectRatio
+        '
+        Me.txtPixelAspectRatio.BackColor = System.Drawing.Color.Black
+        Me.txtPixelAspectRatio.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtPixelAspectRatio.ForeColor = System.Drawing.Color.White
+        Me.txtPixelAspectRatio.Location = New System.Drawing.Point(308, 221)
+        Me.txtPixelAspectRatio.Name = "txtPixelAspectRatio"
+        Me.txtPixelAspectRatio.ReadOnly = True
+        Me.txtPixelAspectRatio.Size = New System.Drawing.Size(98, 20)
+        Me.txtPixelAspectRatio.TabIndex = 134
+        Me.txtPixelAspectRatio.TabStop = False
+        Me.txtPixelAspectRatio.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.ToolTip1.SetToolTip(Me.txtPixelAspectRatio, "Calculated Vertical deviation, camera centre versus target centre, in radians (ne" &
+        "gative=upwards)")
+        '
+        'Label33
+        '
+        Me.Label33.AutoSize = True
+        Me.Label33.ForeColor = System.Drawing.Color.White
+        Me.Label33.Location = New System.Drawing.Point(209, 223)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(93, 13)
+        Me.Label33.TabIndex = 135
+        Me.Label33.Text = "Pixel Aspect Ratio"
         '
         'Main
         '
@@ -1406,7 +1539,7 @@ Partial Class Main
     Friend WithEvents MeasureToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents CrosshairsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents Truth As DataGridViewTextBoxColumn
-    Friend WithEvents MeanZ As DataGridViewTextBoxColumn
+    Friend WithEvents MeanRange As DataGridViewTextBoxColumn
     Friend WithEvents Sigma As DataGridViewTextBoxColumn
     Friend WithEvents Samples As DataGridViewTextBoxColumn
     Friend WithEvents chkViewDepth As CheckBox
@@ -1415,4 +1548,14 @@ Partial Class Main
     Friend WithEvents GuideToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents lblLoglevel As Label
     Friend WithEvents LoadToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents FindRowToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents FindFloorToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents txtFloorHeight As TextBox
+    Friend WithEvents Label10 As Label
+    Friend WithEvents Label7 As Label
+    Friend WithEvents txtFloorAngleD As TextBox
+    Friend WithEvents txtFloorAngle As TextBox
+    Friend WithEvents Label8 As Label
+    Friend WithEvents txtPixelAspectRatio As TextBox
+    Friend WithEvents Label33 As Label
 End Class

@@ -31,7 +31,7 @@ Partial Public Class RedCircle
                         txtCol.Text = $"{ .Col:#,##0.000}"
                         txtRow.Text = $"{ .Row:#,##0.000}"
                         txtRadius.Text = $"{ .Radius:0.0}"
-                        txtRange.Text = $"{ .MeanZ:#,##0.0}"
+                        txtRange.Text = $"{ .MeanRange:#,##0.0}"
                         txtSigma.Text = $"{ .Sigma:0.0}"
                         txtSamples.Text = $"{ .Samples:#,##0}"
                         DrawScaled(Target.Bitmap, pbPixels.Image)

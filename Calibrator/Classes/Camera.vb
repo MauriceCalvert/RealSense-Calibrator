@@ -35,8 +35,12 @@ Public Class Camera
     Public Sub New(device As Device)
         _Device = device
         _Sw.Start()
-        _ColourSettings = New SensorSettings(ColourSensor.Options)
-        _DepthSettings = New SensorSettings(DepthSensor.Options)
+        Try
+            _ColourSettings = New SensorSettings(ColourSensor.Options)
+            _DepthSettings = New SensorSettings(DepthSensor.Options)
+        Catch ex As Exception
+
+        End Try
     End Sub
     ''' <summary>
     ''' Apply settings to a sensor (depth or colour).

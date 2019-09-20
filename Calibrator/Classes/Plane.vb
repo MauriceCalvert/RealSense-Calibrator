@@ -329,9 +329,9 @@ Public Class Plane
     ''' <summary>
     ''' The average Z distance for all pixels of all 5 targets on this plane
     ''' </summary>
-    Public ReadOnly Property MeanZ As Double
+    Public ReadOnly Property MeanRange As Double
         Get
-            Dim result As Double = Targets.Average(Function(q) q.MeanZ)
+            Dim result As Double = Targets.Average(Function(q) q.MeanRange)
             Return result
         End Get
     End Property
@@ -365,7 +365,7 @@ Public Class Plane
     ''' <returns></returns>
     Friend ReadOnly Property Offset(model As Model) As Vector3D
         Get
-            Dim p As Point3D = model.Predict(Middle.Row, Middle.Col, MeanZ)
+            Dim p As Point3D = model.Predict(Middle.Row, Middle.Col, Middle.Range)
             Return New Vector3D(p.X, p.Y, 0)
         End Get
     End Property

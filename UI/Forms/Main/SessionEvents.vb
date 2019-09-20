@@ -81,6 +81,13 @@ Partial Public Class Main
                                 OptimiseToolStripMenuItem.Enabled = _Session.Planes.Any
                                 SaveAsToolStripMenuItem.Enabled = _Session.Model IsNot Nothing
                                 ChartToolStripMenuItem.Enabled = _Session.Model IsNot Nothing
+                            Case State.FindFloor
+                                CrosshairsToolStripMenuItem.Enabled = False
+                                FindTargetsToolStripMenuItem.Enabled = False
+                                MeasureToolStripMenuItem.Enabled = False
+                                FinaliseMeasurementToolStripMenuItem.Enabled = True
+                                OptimiseToolStripMenuItem.Enabled = False
+                                SaveAsToolStripMenuItem.Enabled = _Session.Model IsNot Nothing
                             Case State.FindTargets
                                 CrosshairsToolStripMenuItem.Enabled = False
                                 FindTargetsToolStripMenuItem.Enabled = True

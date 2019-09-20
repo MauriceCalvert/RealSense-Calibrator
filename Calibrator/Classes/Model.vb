@@ -1,12 +1,14 @@
-﻿Imports System.Windows.Media.Media3D
+﻿Imports System.Runtime.Serialization
+Imports System.Windows.Media.Media3D
 Imports System.Math
 Imports NLog
 
 ''' <summary>
 ''' Statistical representation of a camera's intrinsics and extrinsics.
 ''' </summary>
+<DataContract>
 Public Class Model
-    Private _Logger As Logger = LogManager.GetCurrentClassLogger
+    Private _Logger As Logger
     Public Sub New(camera As Camera, planes As Planes)
 
         _Camera = camera
@@ -23,6 +25,34 @@ Public Class Model
         _VFov = camera.DepthVFov
     End Sub
     ''' <summary>
+    ''' The average measurement error for all targets of all planes
+    ''' </summary>
+    Public ReadOnly Property AverageError As Double
+        Get
+            Return Planes.Average(Function(q) AverageError(q))
+        End Get
+    End Property
+    ''' <summary>
+    ''' The average measurement error for all targets of a single plane
+    ''' </summary>
+    Public ReadOnly Property AverageError(plane As Plane) As Double
+        Get
+            Dim result As Double = 0
+            Dim offset As Vector3D = plane.Offset(Me)
+
+            For Each target As Target In plane.Targets.Where(Function(q) q IsNot plane.Middle)
+
+                Dim truth As Point3D = target.Truth
+                Dim prediction As Point3D = Predict(target.Row, target.Col, target.Range)
+                Dim mismatch As Vector3D = prediction - truth - offset
+
+                result += mismatch.Length
+            Next
+
+            Return result / (plane.Targets.Count - 1) ' Middle plane has no error, it's in the centre!
+        End Get
+    End Property
+    ''' <summary>
     ''' The camera that we're modelling
     ''' </summary>
     ''' <returns></returns>
@@ -31,7 +61,12 @@ Public Class Model
     ''' The horizontal deviation of the camera relative to the targets.
     ''' </summary>
     ''' <returns>Radians, positive = The camera is pointing to the right of the target's centre</returns>
-    Public ReadOnly Property Deviation As Double
+    <DataMember>
+    Public Property Deviation As Double
+    <DataMember>
+    Public Property FloorAngle As Double
+    <DataMember>
+    Public Property FloorHeight As Double
     ''' <summary>
     ''' The centre (pixel) column of the camera.
     ''' </summary>
@@ -45,7 +80,8 @@ Public Class Model
     ''' Horizontal field of view
     ''' </summary>
     ''' <returns></returns>
-    Public ReadOnly Property HFov As Double
+    <DataMember>
+    Public Property HFov As Double
     ''' <summary>
     ''' Half the horizontal field of view
     ''' </summary>
@@ -68,7 +104,8 @@ Public Class Model
     ''' The number of columns
     ''' </summary>
     ''' <returns></returns>
-    Friend ReadOnly Property HPixels As Double
+    <DataMember>
+    Friend Property HPixels As Double
     ''' <summary>
     ''' The horizontal size of the image.
     ''' AKA Fx
@@ -82,30 +119,42 @@ Public Class Model
     ''' The up/down inclination of the camera relative to the targets.
     ''' </summary>
     ''' <returns>Radians, positive = The camera is pointing to above the target</returns>
-    Public ReadOnly Property Inclination As Double
+    <DataMember>
+    Public Property Inclination As Double
+    Private ReadOnly Property Logger As Logger
+        Get
+            If _Logger Is Nothing Then
+                _Logger = LogManager.GetCurrentClassLogger
+            End If
+            Return _Logger
+        End Get
+    End Property
+    Public Function Pitch(row As Double, col As Double) As Double
+        Return Atan((row - VCentre) / PitchFactor)
+    End Function
+    Private ReadOnly Property PitchFactor() As Double
+        Get
+            Return VCentre / Tan(VFov / 2)
+        End Get
+    End Property
     ''' <summary>
     ''' The Planes measured so far
     ''' </summary>
     ''' <returns></returns>
-    Public ReadOnly Property Planes As Planes
+    Public Property Planes As Planes
     ''' <summary>
     ''' Calculate the coordinates, in mm, of a 3Dpoint in space in front of the camera,
     ''' given the row, column and range.
     ''' </summary>
-    Friend ReadOnly Property Predict(row As Double, col As Double, range As Double) As Point3D
+    Public ReadOnly Property Predict(row As Double, col As Double, range As Double) As Point3D
         Get
-            Dim voffset As Double = VCentre - row
-            Dim vratio As Double = voffset * VPixel
-            Dim vangle As Double = -Atan(vratio) - Inclination
-            Dim hyp As Double = range / Cos(Inclination - vangle)
-            Dim ground As Double = hyp * Cos(vangle)
-            Dim hoffset As Double = col - HCentre
-            Dim hratio As Double = hoffset * HPixel
-            Dim hangle As Double = Atan(hratio) + Deviation
-            Dim z As Double = ground + QuadraticA * ground * ground + QuadraticB * ground + QuadraticC
-            Dim y As Double = ground * Tan(vangle)
-            Dim x As Double = ground * Tan(hangle)
-            Return New Point3D(x, y, z)
+            Dim x As Double = range * Tan(Yaw(row, col))
+            Dim y As Double = range * Tan(Pitch(row, col))
+            Dim z As Double = range + QuadraticA * range * range + QuadraticB * range + QuadraticC
+
+            Dim absolute As New Point3D(x, y, z)
+            Dim relative As Point3D = ToParent.Transform(absolute)
+            Return relative
         End Get
     End Property
     'Friend ReadOnly Property Predict(row As Double, col As Double, range As Double) As Point3D
@@ -121,42 +170,26 @@ Public Class Model
     ''' <summary>
     ''' The 'A' value - the squared part - of the quadratic correction of the Z values
     ''' </summary>
-    Public ReadOnly Property QuadraticA As Double
+    <DataMember>
+    Public Property QuadraticA As Double
     ''' <summary>
     ''' The 'B' value - the linear part - of the quadratic correction of the Z values
     ''' </summary>
-    Public ReadOnly Property QuadraticB As Double
+    <DataMember>
+    Public Property QuadraticB As Double
     ''' <summary>
     ''' The 'C' value - the distance of the from the front of the camera glass to the depthmap focal point.
     ''' Positive = behind the glass (it usually is).
     ''' </summary>
+    <DataMember>
     Public Property QuadraticC As Double
-    ''' <summary>
-    ''' The average measurement error for all targets of all planes
-    ''' </summary>
-    Public ReadOnly Property AverageError As Double
+    Public ReadOnly Property ToParent As Transform3D
         Get
-            Return Planes.Average(Function(q) AverageError(q))
-        End Get
-    End Property
-    ''' <summary>
-    ''' The average measurement error for all targets of a single plane
-    ''' </summary>
-    Public ReadOnly Property AverageError(plane As Plane) As Double
-        Get
-            Dim result As Double = 0
-            Dim offset As Vector3D = plane.Offset(Me)
-
-            For Each target As Target In plane.Targets.Where(Function(q) q IsNot plane.Middle)
-
-                Dim truth As Point3D = target.Truth
-                Dim prediction As Point3D = Predict(target.Row, target.Col, target.Z)
-                Dim mismatch As Vector3D = prediction - truth - offset
-
-                result += mismatch.Length
-            Next
-
-            Return result / (plane.Targets.Count - 1) ' Middle plane has no error, it's in the centre!
+            Dim aar As New AxisAngleRotation3D(New Vector3D(1, 0, 0), Inclination * TODEGREES)
+            Dim rt As New RotateTransform3D(aar)
+            Dim result As New Transform3DGroup
+            result.Children.Add(rt)
+            Return result
         End Get
     End Property
     ''' <summary>
@@ -173,10 +206,10 @@ Public Class Model
                 For Each target As Target In plane.Targets
 
                     Dim truth As Point3D = target.Truth
-                    Dim prediction As Point3D = Predict(target.Row, target.Col, target.Z)
-                    Dim mismatch As Vector3D = prediction - truth - offset
-
-                    result += mismatch.LengthSquared
+                    Dim prediction As Point3D = Predict(target.Row, target.Col, target.Range)
+                    Dim mismatch As Vector3D = prediction - truth
+                    Dim mismatcho As Vector3D = mismatch - offset
+                    result += mismatcho.LengthSquared
                 Next
             Next
             Return result
@@ -195,7 +228,8 @@ Public Class Model
     ''' Vertical field of view
     ''' </summary>
     ''' <returns></returns>
-    Public ReadOnly Property VFov As Double
+    <DataMember>
+    Public Property VFov As Double
     ''' <summary>
     ''' Half the vertical field of view
     ''' </summary>
@@ -218,7 +252,8 @@ Public Class Model
     ''' The number of vertical pixels, or rows
     ''' </summary>
     ''' <returns></returns>
-    Friend ReadOnly Property VPixels As Double
+    <DataMember>
+    Friend Property VPixels As Double
     ''' <summary>
     ''' The vertical size of the image.
     ''' AKA Fy
@@ -226,6 +261,14 @@ Public Class Model
     Friend ReadOnly Property VSize As Double
         Get
             Return Tan(VFov / 2) * 2
+        End Get
+    End Property
+    Public Function Yaw(row As Double, col As Double) As Double
+        Return Atan((col - HCentre) / YawFactor)
+    End Function
+    Private ReadOnly Property YawFactor() As Double
+        Get
+            Return HCentre / Tan(HFov / 2)
         End Get
     End Property
 End Class

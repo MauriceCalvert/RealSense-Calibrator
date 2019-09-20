@@ -15,6 +15,8 @@ Public Class DepthMap
     End Sub
     Default Public ReadOnly Property Item(x As Integer, y As Integer) As Integer
         Get
+            Debug.Assert(Between(x, 0, Width - 1))
+            Debug.Assert(Between(y, 0, Height - 1))
             Return Data(y * Width + x)
         End Get
     End Property

@@ -29,7 +29,7 @@ Public Class Target
     Private _Logger As Logger
     Private _Truth As Point3D
     Private _Pixel As ConcurrentDictionary(Of Long, RedPixel)
-    Public Sub New() ' for serialisation
+    Public Sub New()
     End Sub
     Friend Sub New(name As String, truth As Point3D)
         _Name = name
@@ -109,6 +109,11 @@ Public Class Target
         Next
         RaiseEvent Changed(Me)
     End Sub
+    Public ReadOnly Property Height As Double
+        Get
+            Return Bounds.Height
+        End Get
+    End Property
     Public ReadOnly Property Logger As Logger
         Get
             If _Logger Is Nothing Then
@@ -117,10 +122,10 @@ Public Class Target
             Return _Logger
         End Get
     End Property
-    Public ReadOnly Property MeanZ As Double
+    Public ReadOnly Property MeanRange As Double
         Get
             If Pixels.Any Then
-                Dim result As Double = Pixels.Average(Function(q) q.Z)
+                Dim result As Double = Pixels.Average(Function(q) q.Range)
                 Return result
             Else
                 Return 0
@@ -158,6 +163,15 @@ Public Class Target
         Get
             Dim b As RectangleF = Bounds
             Return (b.Width + b.Height) / 4
+        End Get
+    End Property
+    Friend ReadOnly Property Range As Double
+        Get
+            If Pixels.Any Then
+                Return Pixels.Average(Function(q) q.Range)
+            Else
+                Return 0
+            End If
         End Get
     End Property
     Friend Sub Reset()
@@ -207,15 +221,6 @@ Public Class Target
         Next
         RaiseEvent Changed(Me)
     End Sub
-    Friend ReadOnly Property Z As Double
-        Get
-            If Pixels.Any Then
-                Return Pixels.Average(Function(q) q.Z)
-            Else
-                Return 0
-            End If
-        End Get
-    End Property
     Friend ReadOnly Property Variance As Double
         Get
             If Pixels.Any Then
@@ -223,6 +228,11 @@ Public Class Target
             Else
                 Return 0
             End If
+        End Get
+    End Property
+    Public ReadOnly Property Width As Double
+        Get
+            Return Bounds.Width
         End Get
     End Property
 End Class

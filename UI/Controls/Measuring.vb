@@ -23,10 +23,10 @@ Public Class Measuring
         lblRight.Text = ""
         lblTop.Text = ""
 
-        Dim tl As Double = Plane.TopLeft.MeanZ
-        Dim tr As Double = Plane.TopRight.MeanZ
-        Dim bl As Double = Plane.BottomLeft.MeanZ
-        Dim br As Double = Plane.BottomRight.MeanZ
+        Dim tl As Double = Plane.TopLeft.MeanRange
+        Dim tr As Double = Plane.TopRight.MeanRange
+        Dim bl As Double = Plane.BottomLeft.MeanRange
+        Dim br As Double = Plane.BottomRight.MeanRange
 
         If tl > bl + 3 AndAlso tr > br + 3 Then ' Top leaning backwards
             lblTop.Text = "Too far"

@@ -8,6 +8,9 @@ Imports NLog
 
 Public Enum State
     Idle
+    FindFloor
+    FindRow
+    ImproveRow
     FindTargets
     ImproveTargets
     NoTargets
@@ -24,7 +27,9 @@ Public Class Session
     Public Event PlaneAdded(sender As Object, plane As Plane)
     Public Event StateChanged(sender As Object, state As State)
 
+    Public ReadOnly Property ActiveFloor As Floor
     Public ReadOnly Property ActivePlane As Plane
+    Public ReadOnly Property ActiveRow As Row
     Public ReadOnly Property Model As Model
     Public ReadOnly Property Planes As Planes
     Public ReadOnly Property Range As Double
@@ -53,6 +58,22 @@ Public Class Session
                 Else
                     Select Case State
 
+                        Case State.FindFloor
+
+                            ActiveFloor.Measure(depthmap)
+
+                        Case State.FindRow
+
+                            If ActiveRow.FindTargets(colour) Then
+                                State = State.ImproveRow
+                            Else
+                                State = State.NoTargets
+                            End If
+
+                        Case State.ImproveRow
+
+                            ActiveRow.ImproveTargets(colour, depthmap)
+
                         Case State.FindTargets
 
                             If ActivePlane.FindTargets(colour) Then
@@ -71,8 +92,16 @@ Public Class Session
 
                     End Select
 
-                    colourpic = ActivePlane.Decorate(colour)
-                    depthpic = ActivePlane.Decorate(depthpic)
+                    If ActivePlane IsNot Nothing Then
+                        colourpic = ActivePlane.Decorate(colour)
+                        depthpic = ActivePlane.Decorate(depthpic)
+                    End If
+
+                    If ActiveRow IsNot Nothing Then
+                        colourpic = ActiveRow.Decorate(colour)
+                        depthpic = ActiveRow.Decorate(depthpic)
+                    End If
+
                 End If
 
                 RaiseEvent FrameReady(sender, depthmap, colourpic, depthpic)
@@ -144,6 +173,23 @@ Public Class Session
     ''' <summary>
     ''' Find the 5 targets on the current plane
     ''' </summary>
+    Public Sub FindFloor()
+        _ActiveFloor = New Floor(Model)
+        State = State.FindFloor
+    End Sub
+    ''' <summary>
+    ''' Find the 5 targets on the current plane
+    ''' </summary>
+    Public Sub FindRow()
+        If ActiveRow Is Nothing Then
+            _ActiveRow = New Row
+        End If
+        ActiveRow.Reset()
+        State = State.FindRow
+    End Sub
+    ''' <summary>
+    ''' Find the 5 targets on the current plane
+    ''' </summary>
     ''' <param name="range">mm</param>
     ''' <param name="targetwidth">mm</param>
     ''' <param name="targetheight">mm</param>
@@ -156,6 +202,10 @@ Public Class Session
         ActivePlane.Reset()
         State = State.FindTargets
     End Sub
+    Public Sub FloorDone(callback As Action(Of Model))
+        Idle()
+        ActiveFloor.Optimise(callback)
+    End Sub
     ''' <summary>
     ''' Go back to 'Idle' mode (no finding targets of measuring)
     ''' </summary>
@@ -167,15 +217,31 @@ Public Class Session
     ''' </summary>
     ''' <param name="filename"></param>
     Public Sub Load(filename As String)
-        If Not filename.EndsWith(".xml") Then
-            filename = $"{filename}.xml"
+        If filename.EndsWith(".xml") Then
+            filename = filename.Substring(0, filename.Length - 4)
         End If
-        Dim fs As New FileStream(filename, FileMode.Open)
-        Dim tr As XmlDictionaryReader = XmlDictionaryReader.CreateTextReader(fs, New XmlDictionaryReaderQuotas)
-        Dim dcs As New DataContractSerializer(GetType(Planes))
-        _Planes = DirectCast(dcs.ReadObject(tr, True), Planes)
-        fs.Close()
+        If filename.EndsWith("Planes") Then
+            filename = filename.Substring(0, filename.Length - 6)
+        End If
+        If filename.EndsWith("Model") Then
+            filename = filename.Substring(0, filename.Length - 5)
+        End If
+
+        Dim pfs As New FileStream(filename & "Planes.xml", FileMode.Open)
+        Dim ptr As XmlDictionaryReader = XmlDictionaryReader.CreateTextReader(pfs, New XmlDictionaryReaderQuotas)
+        Dim pdcs As New DataContractSerializer(GetType(Planes))
+        _Planes = DirectCast(pdcs.ReadObject(ptr, True), Planes)
+        pfs.Close()
+
+        Dim mfs As New FileStream(filename & "Model.xml", FileMode.Open)
+        Dim mtr As XmlDictionaryReader = XmlDictionaryReader.CreateTextReader(mfs, New XmlDictionaryReaderQuotas)
+        Dim mdcs As New DataContractSerializer(GetType(Model))
+        _Model = DirectCast(mdcs.ReadObject(mtr, True), Model)
+        mfs.Close()
+        _Model.Planes = Planes
+
         _ActivePlane = Planes.FirstOrDefault
+
         RaiseEvent PlaneAdded(Me, ActivePlane)
     End Sub
     ''' <summary>
@@ -235,7 +301,7 @@ Public Class Session
 
         sw = New StreamWriter($"{filename} Planes.csv")
 
-        sw.WriteLine("Range,Target,Row,Col,MeanZ,Pixels,Sigma,TrueX,TrueY,TrueZ,OptX,OptY,OptZ,CamX,CamY,CamZ")
+        sw.WriteLine("Range,Target,Row,Col,MeanRange,Pixels,Sigma,TrueX,TrueY,TrueZ,OptX,OptY,OptZ,CamX,CamY,CamZ")
 
         For Each plane As Plane In Model.Planes.OrderBy(Function(q) q.Truth)
 
@@ -248,16 +314,16 @@ Public Class Session
                 sw.Write($",{target.Name}")
                 sw.Write($",{target.Row}")
                 sw.Write($",{target.Col}")
-                sw.Write($",{target.MeanZ}")
+                sw.Write($",{target.MeanRange}")
                 sw.Write($",{target.Pixels.Count}")
                 sw.Write($",{target.Sigma}")
 
                 sw.Write($",{target.Truth.X},{target.Truth.Y},{target.Truth.Z}")
 
-                Dim p As Point3D = Model.Predict(target.Row, target.Col, target.MeanZ) - optoffset
+                Dim p As Point3D = Model.Predict(target.Row, target.Col, target.MeanRange) - optoffset
                 sw.Write($",{p.X},{p.Y},{p.Z}")
 
-                Dim q As Point3D = cameramodel.Predict(target.Row, target.Col, target.MeanZ) - optoffset
+                Dim q As Point3D = cameramodel.Predict(target.Row, target.Col, target.MeanRange) - optoffset
                 sw.Write($",{q.X},{q.Y},{q.Z}")
 
                 sw.WriteLine("")
@@ -266,10 +332,30 @@ Public Class Session
         Next plane
         sw.Close()
 
-        Dim dcs As New DataContractSerializer(GetType(Planes))
-        Dim fs As New FileStream($"{filename}.xml", FileMode.Create)
-        dcs.WriteObject(fs, Planes)
-        fs.Close()
+        If ActiveRow IsNot Nothing Then
+            sw = New StreamWriter($"{filename} Rows.csv")
+            sw.WriteLine("Row,Col,X,Y,Z")
+            For Each target As Target In ActiveRow.Targets
+                Dim p As Point3D = Model.Predict(target.Row, target.Col, target.Range)
+                sw.Write($",{target.Row}")
+                sw.Write($",{target.Col}")
+                sw.Write($",{p.X}")
+                sw.Write($",{p.Y}")
+                sw.Write($",{p.Z}")
+                sw.WriteLine("")
+            Next
+            sw.Close()
+        End If
+
+        Dim pfs As New FileStream($"{filename}Planes.xml", FileMode.Create)
+        Dim pdcs As New DataContractSerializer(GetType(Planes))
+        pdcs.WriteObject(pfs, Planes)
+        pfs.Close()
+
+        Dim mfs As New FileStream($"{filename}Model.xml", FileMode.Create)
+        Dim mdcs As New DataContractSerializer(GetType(Model))
+        mdcs.WriteObject(mfs, Model)
+        mfs.Close()
 
     End Sub
     ''' <summary>

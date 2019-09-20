@@ -1,6 +1,10 @@
 ﻿Imports System.ComponentModel
+Imports System.Windows.Forms.DataVisualization.Charting
+Imports System.Windows.Media.Media3D
 Imports Calibrator
 Public Class ColourPicture
+    Public Model As Model
+    Public DepthMap As DepthMap
     Private _Sized As Boolean = False
     Public Sub New()
         InitializeComponent()
@@ -28,7 +32,14 @@ Public Class ColourPicture
         Try ' Can fail on startup, when resizing, etc., simply ignore
             Dim pixel As Color = Picture1.Source.GetPixel(Convert.ToInt32(x), Convert.ToInt32(y))
             Dim hsv As HSV = ColorToHSV(pixel)
-            Return $"RGB {pixel.R},{pixel.G},{pixel.B}  HSV {hsv}"
+            Dim answer As String = $"RGB {pixel.R},{pixel.G},{pixel.B}  HSV {hsv}"
+            Dim more As String = ""
+            If Model IsNot Nothing AndAlso DepthMap IsNot Nothing Then
+                Dim d As Integer = DepthMap(x.ToInt, y.ToInt)
+                If Between(d, 500, 3500) Then
+                    Dim p As System.Windows.Media.Media3D.Point3D = Model.Predict(x, y, d)
+                End If
+            End If
         Catch ex As Exception
             Return ""
         End Try

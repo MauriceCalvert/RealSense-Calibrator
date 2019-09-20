@@ -1,4 +1,5 @@
 ﻿Imports System.Runtime.Serialization
+Imports System.Windows.Media.Media3D
 ''' <summary>
 ''' A red pixel on a target, on a plane.
 ''' By making a large number of measurements, we can gather accurate statistics about the Z distance.
@@ -7,7 +8,6 @@
 Friend Class RedPixel
     Implements IEquatable(Of RedPixel)
 
-    <DataMember>
     Private _Col As Integer
     Private _Row As Integer
     Private _Redness As Integer
@@ -40,9 +40,16 @@ Friend Class RedPixel
             Return GetKey(Col, Row)
         End Get
     End Property
-    Friend Sub Update(value As Double)
-        Statistic.Add(value)
-    End Sub
+    Public ReadOnly Property Point(model As Model) As Point3D
+        Get
+            Return model.Predict(Row, Col, Range)
+        End Get
+    End Property
+    Friend ReadOnly Property Range As Double
+        Get
+            Return Statistic.Average
+        End Get
+    End Property
     <DataMember>
     Friend Property Redness As Integer
         Get
@@ -84,16 +91,14 @@ Friend Class RedPixel
         End Set
     End Property
     Public Overrides Function ToString() As String
-        Return $"R{Row},C{Col}={Z}"
+        Return $"R{Row},C{Col}={Range}"
     End Function
+    Friend Sub Update(value As Double)
+        Statistic.Add(value)
+    End Sub
     Friend ReadOnly Property Variance As Double
         Get
             Return Statistic.Variance
-        End Get
-    End Property
-    Friend ReadOnly Property Z As Double
-        Get
-            Return Statistic.Average
         End Get
     End Property
 #Region "IEquatable"

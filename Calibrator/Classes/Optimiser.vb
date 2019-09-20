@@ -34,17 +34,17 @@ Partial Public Class Model
 
         lower(Variable.Deviation) = -5 * TORADIANS
         lower(Variable.Inclination) = -5 * TORADIANS
-        lower(Variable.HFoV) = HFov - HFov * 0.03
-        lower(Variable.VFoV) = VFov - VFov * 0.03
-        lower(Variable.QuadraticA) = -0.001
+        lower(Variable.HFoV) = HFov - HFov * 0.05
+        lower(Variable.VFoV) = VFov - VFov * 0.05
+        lower(Variable.QuadraticA) = -0.01
         lower(Variable.QuadraticB) = -0.1
         lower(Variable.QuadraticC) = -50
 
         upper(Variable.Deviation) = 5 * TORADIANS
         upper(Variable.Inclination) = 5 * TORADIANS
-        upper(Variable.HFoV) = HFov + HFov * 0.03
-        upper(Variable.VFoV) = VFov + VFov * 0.03
-        upper(Variable.QuadraticA) = 0.001
+        upper(Variable.HFoV) = HFov + HFov * 0.05
+        upper(Variable.VFoV) = VFov + VFov * 0.05
+        upper(Variable.QuadraticA) = 0.01
         upper(Variable.QuadraticB) = 0.1
         upper(Variable.QuadraticC) = 50
 
@@ -66,7 +66,7 @@ Partial Public Class Model
                                        Dim answer As Double = TotalErrorSquared
                                        iterations += 1
                                        If clock.Expired Then
-                                           _Logger.Info("After {0:#,##0} iterations average error is {1}",
+                                           Logger.Info("After {0:#,##0} iterations average error is {1}",
                                                         iterations, AverageError)
                                        End If
                                        Return answer
@@ -77,7 +77,7 @@ Partial Public Class Model
 
             Dim result As NloptResult = solver.Optimize(initialValue, finalScore)
 
-            _Logger.Info("Solver completed, {0}. {1} iterations average error {2:##0.0} total error {3:##0.0}",
+            Logger.Info("Solver completed, {0}. {1} iterations average error {2:##0.0} total error {3:##0.0}",
                          [Enum].GetName(GetType(NloptResult), result),
                          iterations,
                          AverageError,
@@ -86,10 +86,10 @@ Partial Public Class Model
             If Math.Round(QuadraticA, 6) <= lower(Variable.QuadraticA) OrElse Math.Round(QuadraticA, 6) >= upper(Variable.QuadraticA) OrElse
                 Math.Round(QuadraticB, 6) <= lower(Variable.QuadraticB) OrElse Math.Round(QuadraticB, 6) >= upper(Variable.QuadraticB) OrElse
                 Math.Round(QuadraticC, 6) <= lower(Variable.QuadraticC) OrElse Math.Round(QuadraticC, 6) >= upper(Variable.QuadraticC) Then
+                Logger.Warn($"Quadratic terms cannot be determined {_QuadraticA} {_QuadraticB} {_QuadraticC}. Make more measurements!")
                 _QuadraticA = 0
                 _QuadraticB = 0
                 _QuadraticC = 0
-                _Logger.Warn("Quadratic terms cannot be determined. Make more measurements!")
             End If
         End Using
         callback(Me)

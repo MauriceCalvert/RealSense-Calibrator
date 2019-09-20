@@ -12,8 +12,9 @@
     <AssemblyName>Calibrator</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -127,8 +128,10 @@
     <Compile Include="Classes\Decorating\DecorationCircle.vb" />
     <Compile Include="Classes\Decorating\DecorationLine.vb" />
     <Compile Include="Classes\Decorating\DecorationText.vb" />
+    <Compile Include="Classes\Floor.vb" />
     <Compile Include="Classes\Model.vb" />
     <Compile Include="Classes\Optimiser.vb" />
+    <Compile Include="Classes\Row.vb" />
     <Compile Include="Classes\Statistic.vb" />
     <Compile Include="Classes\DepthMap.vb" />
     <Compile Include="Classes\Plane.vb" />

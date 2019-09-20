@@ -1,4 +1,4 @@
-# Intel RealSense Camera Calibrator
+# Project Title
 
 Tool to significantly improve the depth accuracy of Intel RealSense cameras, by calibrating the depth stream itself and compensating for non-linearities.
 
@@ -22,7 +22,7 @@ Download the package and run RealSenseCalibrator\bin\x64\Release\UI.exe.
 
 ## Author
 
-* **Maurice Calvert** - maurice AT calvert DOT ch
+* **Maurice Calvert** - maurice@calvert.ch
 
 ## License
 

@@ -1,0 +1,109 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<title>Performing your first calibration</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<link type="text/css" rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <h1>RealSense Calibrator - performing your first calibration</h1>
+    Prerequisite: <a href="initialsetup.html">Setting up for calibration</a>
+    <p>It is strongly recommended that you read this document in its entirety before starting.</p>
+    <p>The whole process will take about 30 minutes.</p>
+    <ol>
+        <li>
+            Good, even lighting is <b>essential</b>.
+        </li>
+        <li>
+            Fire up <a href="..\..\bin\x64\Release\UI.exe">RealSenseCalibrator\bin\x64\Release\UI.exe</a>.
+            Hover the mouse over the interface elements to see the tooltips. Do not change any settings.
+        </li>
+        <li>
+            Place the camera at the zero mark, and line it up to the blue centre crosshair so that the camera is pointing
+            exactly along the line of markers:
+            <p><img src="aligncamera.png" />
+        </li>
+        <li>
+            Centre your plane of targets on the 1-metre mark, facing back to the camera.
+            Measure the distance from the front glass of the camera to
+            the centre of the target with a ruler. Move the <b>camera</b> until the glass is exactly 1 metre away from the target.
+            The camera's position and orientation is now established, 1 metre from from the target, perfectly perpendicular and
+            aligned with your markers line on the floor.
+        </li>
+        <li>
+            Move the plane towards the camera until the edges of the green
+            circles are close to the edges of the image:
+            <p><img src="ss1.jpg" />
+            <p>Move the plane such that the blue crosshairs interesct all the red targets.
+        </li>
+        <li>
+            Measure the distance from the camera's front glass to the centre of the target. This will probably be around
+            600mm. Enter this value, in mm, in the Range field:
+            <p><img src="rangefield.jpg" />
+        </li>
+        <li>
+            The vertical distance between the centres of the 2 left red targets is the HEIGHT in mm.
+            The distance between the centres of the 2 right red targets must be the same.
+            The horizontal distance between the centres of the 2 top red targets is the WIDTH in mm.
+            The distance between the centres of the 2 bottom red targets must be the same.
+            Enter these mm values in the width and height fields:
+            <p><img src="widthheight.jpg" />
+        </li>
+        <li>
+            Click "Find Targets". Wait a moment for the all the red pixels to be identified. At first, the plane will probably not be perfectly perpendicular to the camera.
+            In this case the target display will indicate how the plane needs to be adjusted, with "Too close" and "Too far" in blue:
+            <p><img src="ss2.jpg" />
+            <p>Here, the top of the target is tilted towards the camera and the target is rotated clockwise looking from the top.
+            The actual misalignment can be observed by comparing the range fields left/right and top/bottom.
+        </li>
+        <li>
+            When you reposition the plane to improve the alignment, the targets will distort:
+            <p><img src="distort.jpg" />
+            <p>This is normal, click "Find Targets" to restart the alignment.
+            Wait a few moments for the red circles to be correctly identified again before making further adjustments.
+            The program considers the alignment satisfactory when the difference is less than 0.3% of the range.
+            Don't worry if you can't get it perfectly perpendicular, the program compensates for minor errors.
+        </li>
+        <li>
+            Click "Measure". The counters reset, the frame rate increases and the ranges start recording:
+            <p><img src="ranges.jpg" />
+        </li>
+        <li>
+            The MeanRange will slowly converge. When it seems well settled (only changing be hundredths of a mm, usually after a minute or two), 
+            click "Finalise".
+        </li>
+        <li>
+            Click "Optimise". The optimiser displays its progress in the window at the bottom.
+            The results will not be very accurate but they should already be a significant improvement on
+            the values calculated using the camera's intrinsics (here, nearly a factor of 4 better):
+            <p><img src="firstoptimise.png" />
+            <p>Notice the warning in the lower window: As only one plane has been measured, there is not enough data
+            to calculate the camera's non-linearity.
+        </li>
+        <li>
+            Move the plane away from the camera to the 1-metre mark. Enter the range value, 1'000. Go to step 5.
+        </li>
+        <li>
+            Repeat for 1m50, 2m and 2m50. At longer distances, it may take a while to identify all the red pixels and the result
+            might not be a nice circle. It's not important.
+        </li>
+        <li>
+            Click "Optimise" again. The warning about quadratic terms should not appear:
+            <p><img src="calibrated.png" />
+        </li>
+        <li>
+            Click "Chart" to display a comparison between the error using the camera's intrinsics and the error
+            using the optimised values:
+            <p><img src="calibratedchart.png" />
+        </li>
+        <li>
+            Click "File->Save" and choose a folder. Two CSV files and an XML file will be created:
+            "435 xxxxxx Planes.csv" and "435 xxxxxx Trinsics.csv" and "435 xxxxxx.xml" where
+            xxxxxx is the serial number of the camera. These are discussed in the next section.
+        </li>
+    </ol>
+    <p>Up: <a href="index.html">Home</a>
+    <p>Previous: <a href="initialsetup.html">Setting up for calibration</a>
+    <p>Next: <a href="analysingresults.html">Analysing the results</a>
+</body>
+</html>

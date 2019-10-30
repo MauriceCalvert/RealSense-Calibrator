@@ -1,0 +1,15 @@
+D:\RealSense-Calibrator\bin\x64\Debug\NLoptNet.dll
+D:\RealSense-Calibrator\bin\x64\Debug\libnlopt-0.dll
+D:\RealSense-Calibrator\bin\x64\Debug\Intel.Realsense.dll
+D:\RealSense-Calibrator\bin\x64\Debug\realsense2.dll
+D:\RealSense-Calibrator\bin\x64\Debug\Calibrator.dll
+D:\RealSense-Calibrator\bin\x64\Debug\Calibrator.pdb
+D:\RealSense-Calibrator\bin\x64\Debug\Calibrator.xml
+D:\RealSense-Calibrator\Calibrator\obj\x64\Debug\Calibrator.vbprojAssemblyReference.cache
+D:\RealSense-Calibrator\Calibrator\obj\x64\Debug\Calibrator.Resources.resources
+D:\RealSense-Calibrator\Calibrator\obj\x64\Debug\Calibrator.vbproj.GenerateResource.cache
+D:\RealSense-Calibrator\Calibrator\obj\x64\Debug\Calibrator.vbproj.CoreCompileInputs.cache
+D:\RealSense-Calibrator\Calibrator\obj\x64\Debug\Calibrator.vbproj.CopyComplete
+D:\RealSense-Calibrator\Calibrator\obj\x64\Debug\Calibrator.dll
+D:\RealSense-Calibrator\Calibrator\obj\x64\Debug\Calibrator.xml
+D:\RealSense-Calibrator\Calibrator\obj\x64\Debug\Calibrator.pdb

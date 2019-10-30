@@ -1,0 +1,48 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+UI
+</name>
+</assembly>
+<members>
+<member name="T:UI.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:UI.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:UI.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="T:UI.Picture">
+ <summary>
+ A PictureBox that:
+     - Is thread-safe, handling re-entrancy by only allowing one image update at a time
+     - Draws the incoming image scaled for the best fit without distortion
+     - Displays the mouse X and Y, correctly scaled
+     - Displays the FPS
+     - Optionally invokes a callback on mouse events, to display information about the pixel under the cursor
+ </summary>
+</member>
+<member name="T:UI.InfoCallback">
+ <summary>
+ A callback, rather line MouseEventArgs, which may be registered for mouse events; it returns a text to be displayed in the status line
+ </summary>
+ <param name="sender">This picture</param>
+ <param name="buttons">MouseButtons info</param>
+ <param name="clicks">Number of mouse clicks</param>
+ <param name="x">The X coordinates of the mouse in the full-size image scale</param>
+ <param name="y">The X coordinates of the mouse in the full-size image scale</param>
+ <param name="delta">The number of mousewheel moves</param>
+ <returns></returns>
+</member>
+</members>
+</doc>

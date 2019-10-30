@@ -1,0 +1,328 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+          "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<title>Messages, causes and solutions</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<link type="text/css" rel="Stylesheet" href="golf.css" />
+</head>
+<body>
+<h1>Messages, causes and solutions</h1>
+<table>
+<tr><th>Message</td><th>Cause</td><th>Action</td><th>Source</td></tr>
+<tr><td>A contract's instrument can only have one pricer. XXX</td><td>Internal error</td><td>3rd-level support</td><td>BusinessEngine\DBClasses\Contract.vb(369)</td></tr>
+<tr><td>A reconciliation is in progress, Golf has to close. Time for a coffee</td><td>Self-explanatory</td><td></td><td>TradingUI\Forms\MainUI\BusinessEvents.vb(51)</td></tr>
+<tr><td>Accounting completed YYY</td><td>Self-explanatory</td><td></td><td>ReconcileUI\ReconcileUI.vb(412)</td></tr>
+<tr><td>Accounting TLT for XXX in XXX / XXX is XXX , should be YYY</td><td>The accounting spreadsheet has a mistake</td><td>Report to accounting</td><td>ReconcileUI\Accounting\LoadAccounting.vb(316)</td></tr>
+<tr><td>Accounting TST for XXX in XXX / XXX is XXX , should be YYY</td><td>The accounting spreadsheet has a mistake</td><td>Report to accounting</td><td>ReconcileUI\Accounting\LoadAccounting.vb(306)</td></tr>
+<tr><td>Added deal XXX YYY</td><td>Self-explanatory</td><td>None, information only</td><td>BusinessEngine\Business\Business.vb(106)</td></tr>
+<tr><td>Added XXX on XXX to YYY</td><td>Self-explanatory</td><td></td><td>ReconcileUI\Holidays\HolidaysLoader.vb(157)</td></tr>
+<tr><td>Arbs express a transport cost, which is normally implies different regions</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidatePrimaries.vb(38)</td></tr>
+<tr><td>Ask support to run the stored procedure SetupServiceBroker in XXX on XXX to fix this.</td><td>The service broker isn't working (database just restored?)</td><td>2nd-level support</td><td>BusinessEngine\Business\Business.vb(224)</td></tr>
+<tr><td>At least one underlying must not waterfall to any other product</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidateWaterfall.vb(136)</td></tr>
+<tr><td>Booking YYY</td><td>The deal is valid, starting database insert/update</td><td>None, information only</td><td>BusinessEngine\Business\BookDeal.vb(104)</td></tr>
+<tr><td>Books XXX and XXX have exactly the same strategies YYY</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidateBooks.vb(26)</td></tr>
+<tr><td>BulkDealDelete deleted XXX</td><td>Self-explanatory</td><td>None, information only</td><td>BusinessEngine\Business\BulkDeal.vb(38)</td></tr>
+<tr><td>Business layer failed to load</td><td>Internal error</td><td>3rd-level support</td><td>MaintenanceUI\Main.vb(36)</td></tr>
+<tr><td>Cak pair XXX and XXX have nominal=0</td><td>Incorrect data in Petrotrade</td><td>3rd-level support</td><td>ReconcileUI\Petrotrade\LoadPetrotrade.vb(348)</td></tr>
+<tr><td>Cak pair XXX and XXX invalid material YYY</td><td>Incorrect data in Petrotrade</td><td>3rd-level support</td><td>ReconcileUI\Petrotrade\LoadPetrotrade.vb(370)</td></tr>
+<tr><td>Cak pair XXX and XXX invalid purchase/sale YYY</td><td>Incorrect data in Petrotrade</td><td>3rd-level support</td><td>ReconcileUI\Petrotrade\LoadPetrotrade.vb(388)</td></tr>
+<tr><td>Cak pair XXX and YYY quantity mismatch, XXX and YYY</td><td>Incorrect data in Petrotrade</td><td>3rd-level support</td><td>ReconcileUI\Petrotrade\LoadPetrotrade.vb(273)</td></tr>
+<tr><td>Cak XXX algorithm YYY is a forward on the primary ZZZ . Primaries can only be traded Swap</td><td>Incorrect data in Petrotrade</td><td>3rd-level support</td><td>ReconcileUI\Petrotrade\LoadPetrotrade.vb(216)</td></tr>
+<tr><td>Cak XXX algorithm YYY is forwarding the primary ZZZ</td><td>Incorrect data in Petrotrade</td><td>3rd-level support</td><td>ReconcileUI\Petrotrade\LoadPetrotrade.vb(237)</td></tr>
+<tr><td>Cak XXX algorithm YYY not defined</td><td>Define algorithm YYY with the Maintenance interface</td><td>3rd-level support</td><td>ReconcileUI\Petrotrade\LoadPetrotrade.vb(202)</td></tr>
+<tr><td>Cak XXX has no pricing periods</td><td>Incorrect data in Petrotrade</td><td>3rd-level support</td><td>ReconcileUI\Petrotrade\LoadPetrotrade.vb(152)</td></tr>
+<tr><td>Cak XXX is a Physical on XXX , which is not an underlying</td><td>Incorrect data in Petrotrade</td><td>3rd-level support</td><td>ReconcileUI\Petrotrade\LoadPetrotrade.vb(162)</td></tr>
+<tr><td>Cak XXX is commodity YYY . This is not allowed</td><td>Incorrect data in Petrotrade</td><td>3rd-level support</td><td>ReconcileUI\Petrotrade\LoadPetrotrade.vb(184)</td></tr>
+<tr><td>Cak XXX is commodity YYY but associated ZZZ</td><td>Incorrect data in Petrotrade</td><td>3rd-level support</td><td>ReconcileUI\Petrotrade\LoadPetrotrade.vb(183)</td></tr>
+<tr><td>Cak XXX other leg XXX not found</td><td>Incorrect data in Petrotrade</td><td>3rd-level support</td><td>ReconcileUI\Petrotrade\LoadPetrotrade.vb(172)</td></tr>
+<tr><td>Cak XXX uses unknown commodity YYY</td><td>Incorrect data in Petrotrade</td><td>3rd-level support</td><td>ReconcileUI\Petrotrade\LoadPetrotrade.vb(143)</td></tr>
+<tr><td>Caks XXX - XXX primary XXX is + YYY</td><td>Incorrect data in Petrotrade</td><td>3rd-level support</td><td>ReconcileUI\Petrotrade\LoadPetrotrade.vb(288)</td></tr>
+<tr><td>Cannot refer to Deal.Contracts before contracts are added</td><td>Internal error</td><td>3rd-level support</td><td>BusinessEngine\DBClasses\Deal.vb(350)</td></tr>
+<tr><td>Can't get Exposure of a Primary XXX</td><td>Internal error</td><td>3rd-level support</td><td>BusinessEngine\DBClasses\Contract.vb(160)</td></tr>
+<tr><td>Can't set contracts to empty list of contracts</td><td>Internal error</td><td>3rd-level support</td><td>BusinessEngine\DBClasses\Deal.vb(500)</td></tr>
+<tr><td>Can't set XXX 's primary key to YYY , it already has a primary key ZZZ</td><td>Internal error</td><td>3rd-level support</td><td>MaintenanceUI\Table.vb(56)</td></tr>
+<tr><td>Cell XXX is ' YYY ', it should be ZZZ</td><td>The accounting spreadsheet has a mistake</td><td>Report to accounting</td><td>ReconcileUI\Accounting\LoadAccounting.vb(198)</td></tr>
+<tr><td>Change tracking isn't enabled for XXX , database updates won't be reflected</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(160)</td></tr>
+<tr><td>Change tracking synchronisation lost, current version XXX is less than minimum version YYY</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(400)</td></tr>
+<tr><td>Chart can't be copied to Excel, sorry</td><td>Self-explanatory</td><td></td><td>UIElements\Controls\Displays\Controls\DisplayChart.vb(96)</td></tr>
+<tr><td>Checking Service Broker functionality...</td><td>When Golf starts, it writes a trade with a quantity = 0 to ensure that it receives confirmation from the SQL Service broker</td><td>None, information only</td><td>BusinessEngine\Business\Business.vb(163)</td></tr>
+<tr><td>Clear trades only allowed in Playground</td><td>Self-explanatory</td><td></td><td>TradingUI\Forms\MainUI\Menus.vb(177)</td></tr>
+<tr><td>column.Name YYY</td><td>Internal error</td><td>3rd-level support</td><td>MaintenanceUI\UIEvents.vb(143)</td></tr>
+<tr><td>Commodity XXX found in contract but missing in SPCOMMP !</td><td>Incorrect data in Petrotrade</td><td>3rd-level support</td><td>ReconcileUI\Petrotrade\PetrotradeCommodities.vb(61)</td></tr>
+<tr><td>Confirm tab delete,</td><td>Self-explanatory</td><td></td><td>UIElements\Forms\PositionsUI.vb(106)</td></tr>
+<tr><td>Consider making it an Arb</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidatePrimaries.vb(63)</td></tr>
+<tr><td>Consider making it an Arb or ArbDiff</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidatePrimaries.vb(95)</td></tr>
+<tr><td>Consider making it an ArbDiff</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidatePrimaries.vb(44)</td></tr>
+<tr><td>Consider making it an Diff</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidatePrimaries.vb(57)</td></tr>
+<tr><td>Consider setting 'Dam' on one of them</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidateWaterfall.vb(249)</td></tr>
+<tr><td>Contract cannot have an ID <= 0</td><td>A deal coming back from the DB must have an ID>0</td><td>3rd-level support</td><td>BusinessEngine\Business\Business.vb(137)</td></tr>
+<tr><td>Contract is no longer in entities</td><td>Internal error</td><td>3rd-level support</td><td>BusinessEngine\Business\DeleteContract.vb(23)</td></tr>
+<tr><td>ConvertQuantity doesn't understand unit YYY</td><td>Internal error</td><td>3rd-level support</td><td>BusinessEngine\Modules\ConvertQuantity.vb(29)</td></tr>
+<tr><td>Copy to Excel failed</td><td>Self-explanatory</td><td></td><td>ReconcileUI\Main\Events.vb(188)</td></tr>
+<tr><td>Couldn't refresh databases YYY</td><td>SQLSMO failure</td><td>Choose a different server</td><td>Common\SelectServerUI.vb(136)</td></tr>
+<tr><td>Couldn't refresh servers YYY</td><td>SQLSMO failure</td><td>2nd-level support</td><td>Common\SelectServerUI.vb(99)</td></tr>
+<tr><td>Couldn't start Excel</td><td>Internal error</td><td>2nd-level support</td><td>UIElements\Modules\CopyDgvToExcel.vb(32)</td></tr>
+<tr><td>Cracks normally have a crude underlying</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidatePrimaries.vb(76)</td></tr>
+<tr><td>Cracks normally have both of their underlyings in the same region</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidatePrimaries.vb(82)</td></tr>
+<tr><td>Cracks normally have sulphur set to High or Low</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidatePrimaries.vb(88)</td></tr>
+<tr><td>CreateShortcuts is not running as admin</td><td>InstallShortcuts must be 'run as admin'</td><td>3rd-level support</td><td>InstallShortcuts\Main.vb(28)</td></tr>
+<tr><td>Crude ArbDiffs normally have both underlyings as crude</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidatePrimaries.vb(69)</td></tr>
+<tr><td>Crude Arbs normally have both underlyings as crude</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidatePrimaries.vb(50)</td></tr>
+<tr><td>Crude Diffs should have both crude underlyings</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidatePrimaries.vb(101)</td></tr>
+<tr><td>cursor was not created from file XXX</td><td>Internal error</td><td>3rd-level support</td><td>UIElements\Classes\AnimatedCursor.vb(23)</td></tr>
+<tr><td>Data engine raised a unknown DataChanged action YYY</td><td>Internal error</td><td>3rd-level support</td><td>BusinessEngine\Business\DataEngineEvents.vb(110)</td></tr>
+<tr><td>Database change tracking isn't enabled, database updates won't be reflected</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(148)</td></tr>
+<tr><td>Database deleted YYY</td><td>DataEngine is notify the business layer of a deleted deal</td><td>None, information only</td><td>BusinessEngine\Business\DataEngineEvents.vb(34)</td></tr>
+<tr><td>Database inserted new YYY</td><td>DataEngine is notify the business layer of a new deal which was created by somebody else</td><td>None, information only</td><td>BusinessEngine\Business\DataEngineEvents.vb(64)</td></tr>
+<tr><td>Database inserted XXX from stamp</td><td>DataEngine is notify the business layer of a new deal which was created by the current user</td><td>None, information only</td><td>BusinessEngine\Business\DataEngineEvents.vb(60)</td></tr>
+<tr><td>Database property XXX is ' XXX ', should be YYY</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(191)</td></tr>
+<tr><td>Database SNAPSHOT_ISOLATION= XXX , should be ON</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(226)</td></tr>
+<tr><td>Database tried to insert deal XXX , but it was deleted in the database</td><td>Self-explanatory</td><td>3rd-level support</td><td>BusinessEngine\Business\DataEngineEvents.vb(47)</td></tr>
+<tr><td>Database tried to update deal XXX , but it was deleted in the database</td><td>Self-explanatory</td><td>3rd-level support</td><td>BusinessEngine\Business\DataEngineEvents.vb(86)</td></tr>
+<tr><td>Database trying to update deal XXX , but it wasn't in the POCO objects</td><td>Internal error</td><td>3rd-level support</td><td>BusinessEngine\Business\DataEngineEvents.vb(102)</td></tr>
+<tr><td>Database updateTo YYY</td><td>After image of an updating deal</td><td>None, information only</td><td>BusinessEngine\Business\DataEngineEvents.vb(95)</td></tr>
+<tr><td>Database updating YYY</td><td>Before image of an updating deal</td><td>None, information only</td><td>BusinessEngine\Business\DataEngineEvents.vb(91)</td></tr>
+<tr><td>Date in XXX doesn't follow the current month YYY</td><td>The accounting spreadsheet has a mistake</td><td>Report to accounting</td><td>ReconcileUI\Accounting\LoadAccounting.vb(123)</td></tr>
+<tr><td>Deal cannot be traded before 1 January 2000</td><td>Self-explanatory</td><td>3rd-level support</td><td>BusinessEngine\Business\BookDeal.vb(33)</td></tr>
+<tr><td>Deal first contract has wrong sign YYY</td><td>Internal error</td><td>3rd-level support</td><td>BusinessEngine\Business\ValidateDeals.vb(55)</td></tr>
+<tr><td>Deal first contract has wrong sign YYY</td><td>Internal error</td><td>3rd-level support</td><td>BusinessEngine\Business\ValidateDeals.vb(65)</td></tr>
+<tr><td>Deal has no contracts</td><td>A deal must have at least 1 contract (for a forward, a future, etc) and 2 contracts for a swap</td><td></td><td>BusinessEngine\Business\BookDeal.vb(43)</td></tr>
+<tr><td>Deal has too many contracts YYY</td><td>Internal error</td><td>3rd-level support</td><td>BusinessEngine\Business\ValidateDeals.vb(28)</td></tr>
+<tr><td>Deal has wrong number of contracts YYY</td><td>Internal error</td><td>3rd-level support</td><td>BusinessEngine\Business\ValidateDeals.vb(40)</td></tr>
+<tr><td>Deal must have a CounterParty</td><td>Self-explanatory</td><td>3rd-level support</td><td>BusinessEngine\Business\BookDeal.vb(9)</td></tr>
+<tr><td>Deal must have a Domain</td><td>Self-explanatory</td><td>3rd-level support</td><td>BusinessEngine\Business\BookDeal.vb(13)</td></tr>
+<tr><td>Deal must have a Exchange</td><td>Self-explanatory</td><td>3rd-level support</td><td>BusinessEngine\Business\BookDeal.vb(17)</td></tr>
+<tr><td>Deal must have a Instrument</td><td>Self-explanatory</td><td>3rd-level support</td><td>BusinessEngine\Business\BookDeal.vb(21)</td></tr>
+<tr><td>Deal must have a Product</td><td>Self-explanatory</td><td>3rd-level support</td><td>BusinessEngine\Business\BookDeal.vb(25)</td></tr>
+<tr><td>Deal must have a Strategy</td><td>Self-explanatory</td><td>3rd-level support</td><td>BusinessEngine\Business\BookDeal.vb(29)</td></tr>
+<tr><td>Deal must have a Trader</td><td>Self-explanatory</td><td>3rd-level support</td><td>BusinessEngine\Business\BookDeal.vb(37)</td></tr>
+<tr><td>Deal nominal XXX <> contract nominal XXX in YYY</td><td>Internal error</td><td>3rd-level support</td><td>BusinessEngine\Business\ValidateDeals.vb(31)</td></tr>
+<tr><td>Deal nominal XXX <> contract nominal XXX in YYY</td><td>Internal error</td><td>3rd-level support</td><td>BusinessEngine\Business\ValidateDeals.vb(45)</td></tr>
+<tr><td>Deal nominal XXX <> contract nominal XXX in YYY</td><td>Internal error</td><td>3rd-level support</td><td>BusinessEngine\Business\ValidateDeals.vb(49)</td></tr>
+<tr><td>Deal nominal XXX is different to 1st contract nominal YYY</td><td>The deal is a swap but the 2nd contract quantity doesn't match the deal's quantity</td><td></td><td>BusinessEngine\Business\BookDeal.vb(63)</td></tr>
+<tr><td>Deal nominal XXX is different to 2nd contract nominal YYY</td><td>The deal is a swap but the 1st contract quantity doesn't match the deal's quantity</td><td></td><td>BusinessEngine\Business\BookDeal.vb(67)</td></tr>
+<tr><td>Deal nominal XXX is different to total contract nominal YYY</td><td>The deal nominal must the contract nominal</td><td>3rd-level support</td><td>BusinessEngine\Business\BookDeal.vb(50)</td></tr>
+<tr><td>Deal not booked</td><td>Self-explanatory</td><td></td><td>UIElements\Forms\DealUI\Events.vb(185)</td></tr>
+<tr><td>Deal pricing finish XXX doesn't match latest contract's pricing finish YYY</td><td>The deal finishes pricing at XXX but the contract finishes pricing at YYY</td><td>3rd-level support</td><td>BusinessEngine\Business\BookDeal.vb(97)</td></tr>
+<tr><td>Deal pricing start XXX doesn't match earliest contract's pricing start YYY</td><td>The deal starts pricing at XXX but the contract start pricing at YYY</td><td>3rd-level support</td><td>BusinessEngine\Business\BookDeal.vb(93)</td></tr>
+<tr><td>Deal second contract has wrong sign YYY</td><td>Internal error</td><td>3rd-level support</td><td>BusinessEngine\Business\ValidateDeals.vb(59)</td></tr>
+<tr><td>Deal second contract has wrong sign YYY</td><td>Internal error</td><td>3rd-level support</td><td>BusinessEngine\Business\ValidateDeals.vb(69)</td></tr>
+<tr><td>Deal with no contracts cannot be added</td><td>Self-explanatory</td><td>3rd-level support</td><td>BusinessEngine\Business\Business.vb(112)</td></tr>
+<tr><td>Deals didn't match. Golf discrepancy is XXX tonnes. Petrotrade discrepancy is YYY tonnes.</td><td>Self-explanatory</td><td></td><td>ReconcileUI\MatchDeals.vb(81)</td></tr>
+<tr><td>Deals have been updated by other users. Please press F5 to calculate new exposure.</td><td>Self-explanatory</td><td></td><td>UIElements\Modules\PopulatePositions.vb(314)</td></tr>
+<tr><td>Deals were changed whilst they were being loaded. XXX</td><td>A deal was booked/updated during Golf startup. Deals might not all be loaded</td><td>Restart Golf</td><td>BusinessEngine\Business\Startup.vb(35)</td></tr>
+<tr><td>Deleting contract XXX , but it's POCO is gone</td><td>Internal error</td><td>3rd-level support</td><td>BusinessEngine\Business\DeleteContract.vb(13)</td></tr>
+<tr><td>Deleting contract YYY</td><td>Self-explanatory</td><td>None, information only</td><td>BusinessEngine\Business\DeleteContract.vb(11)</td></tr>
+<tr><td>Delivery can't finish before it starts</td><td>Self-explanatory</td><td></td><td>UIElements\Forms\DealUI\Events.vb(229)</td></tr>
+<tr><td>Dependency_OnChange failed</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(304)</td></tr>
+<tr><td>Directory XXX doesn't exist</td><td>Internal error</td><td>3rd-level support</td><td>LaunchTrading\LauncherUI.vb(32)</td></tr>
+<tr><td>Enter a name for the Accounting Product</td><td>Self-explanatory</td><td></td><td>ManagerUI\EditACProduct.vb(45)</td></tr>
+<tr><td>Enter a name for the Accounting Strategy</td><td>Self-explanatory</td><td></td><td>ManagerUI\EditACStrategy.vb(37)</td></tr>
+<tr><td>Enter a name for the book</td><td>Self-explanatory</td><td></td><td>ManagerUI\EditBook.vb(64)</td></tr>
+<tr><td>Enter a name for the Broker</td><td>Self-explanatory</td><td></td><td>ManagerUI\EditBroker.vb(34)</td></tr>
+<tr><td>Enter a name for the Calendar</td><td>Self-explanatory</td><td></td><td>ManagerUI\EditCalendar.vb(35)</td></tr>
+<tr><td>Enter a name for the Counterparty</td><td>Self-explanatory</td><td></td><td>ManagerUI\EditCounterparty.vb(34)</td></tr>
+<tr><td>Enter a name for the Exchange</td><td>Self-explanatory</td><td></td><td>ManagerUI\EditExchange.vb(34)</td></tr>
+<tr><td>Enter a name for the Petrotrade Algorithm</td><td>Self-explanatory</td><td></td><td>ManagerUI\EditPTAlgorithm.vb(37)</td></tr>
+<tr><td>Enter a name for the Petrotrade Commodity</td><td>Self-explanatory</td><td></td><td>ManagerUI\EditPTCommodity.vb(39)</td></tr>
+<tr><td>Enter a name for the Petrotrade Strategy</td><td>Self-explanatory</td><td></td><td>ManagerUI\EditPTStrategy.vb(36)</td></tr>
+<tr><td>Enter a name for the Primary, Invalid primary, MessageBoxButtons.OK, MessageBoxIcon.Exclamation</td><td>Self-explanatory</td><td></td><td>ManagerUI\EditPrimary.vb(98)</td></tr>
+<tr><td>Enter a name for the Proxy</td><td>Self-explanatory</td><td></td><td>ManagerUI\EditProxy.vb(70)</td></tr>
+<tr><td>Enter a name for the Region</td><td>Self-explanatory</td><td></td><td>ManagerUI\EditRegion.vb(35)</td></tr>
+<tr><td>Enter a name for the strategy</td><td>Self-explanatory</td><td></td><td>ManagerUI\EditStrategy.vb(155)</td></tr>
+<tr><td>Enter a name for the Strategy</td><td>Self-explanatory</td><td></td><td>ManagerUI\EditStrategy.vb(54)</td></tr>
+<tr><td>Enter a name for the Trader</td><td>Self-explanatory</td><td></td><td>ManagerUI\EditTrader.vb(57)</td></tr>
+<tr><td>Enter a name for the Underlying</td><td>Self-explanatory</td><td></td><td>ManagerUI\EditUnderlying.vb(68)</td></tr>
+<tr><td>Enter the number of tonnes to trade</td><td>Self-explanatory</td><td></td><td>UIElements\Forms\DealUI\Events.vb(697)</td></tr>
+<tr><td>Error creating shortcuts YYY</td><td>Internal error</td><td>3rd-level support</td><td>InstallShortcuts\Main.vb(48)</td></tr>
+<tr><td>Error getting acess rights from GSM XXX</td><td>The GSM interface is broken. XXX is the activity that broke.</td><td>2nd-level support</td><td>AccessControl\AccessController.vb(110)</td></tr>
+<tr><td>Error in Primary_Selected</td><td>Internal error</td><td>3rd-level support</td><td>ManagerUI\Main.vb(115)</td></tr>
+<tr><td>Error in Underlying_Selected</td><td>Internal error</td><td>3rd-level support</td><td>ManagerUI\Main.vb(160)</td></tr>
+<tr><td>Error in ValidateEverything</td><td>Internal error</td><td>3rd-level support</td><td>ManagerUI\Main.vb(89)</td></tr>
+<tr><td>Error in YYY</td><td>Internal error</td><td>3rd-level support</td><td>UIElements\Controls\Displays\Controls\Display.vb(117)</td></tr>
+<tr><td>Error launching CreateShortcuts YYY</td><td>Internal error</td><td>3rd-level support</td><td>LaunchTrading\LauncherUI.vb(90)</td></tr>
+<tr><td>Error loading future calendar XXX YYY</td><td>Problem getting future settlement dates from the ETIOPT web service </td><td>3rd-level support</td><td>ReconcileUI\FutureSettlements\FutureSettlementLoader.vb(138)</td></tr>
+<tr><td>Error loading holidays YYY</td><td>Internal error</td><td>3rd-level support</td><td>ReconcileUI\Holidays\HolidaysLoader.vb(209)</td></tr>
+<tr><td>Error saving future settlement calendar changes YYY</td><td>Problem getting future settlement dates from the ETIOPT web service </td><td>3rd-level support</td><td>ReconcileUI\FutureSettlements\FutureSettlementLoader.vb(148)</td></tr>
+<tr><td>Error saving holiday changes YYY</td><td>Internal error</td><td>3rd-level support</td><td>ReconcileUI\Holidays\HolidaysLoader.vb(217)</td></tr>
+<tr><td>Error setting OT calendar YYY</td><td>Internal error</td><td>3rd-level support</td><td>ReconcileUI\ReconcileUI.vb(144)</td></tr>
+<tr><td>Expose Long must be a different underlying to Expose Short, Invalid primary, MessageBoxButtons.OK, MessageBoxIcon.Exclamation</td><td>Self-explanatory</td><td></td><td>ManagerUI\EditPrimary.vb(104)</td></tr>
+<tr><td>Failed to load XXX YYY</td><td>Incorrect data in Petrotrade</td><td>3rd-level support</td><td>ReconcileUI\Petrotrade\LoadPetrotrade.vb(460)</td></tr>
+<tr><td>failed to remove from entities due to YYY</td><td>Internal error</td><td>3rd-level support</td><td>BusinessEngine\Business\DeleteDeal.vb(34)</td></tr>
+<tr><td>Fatal Windows Forms Error</td><td>Internal error</td><td>3rd-level support</td><td>ReconcileUI\Main.vb(45)</td></tr>
+<tr><td>Fixed-Fixed Cak pair XXX and YYY makes no sense</td><td>Incorrect data in Petrotrade</td><td>3rd-level support</td><td>ReconcileUI\Petrotrade\LoadPetrotrade.vb(196)</td></tr>
+<tr><td>Float-float Cak pair XXX and YYY both have PurchaseSale ZZZ</td><td>Incorrect data in Petrotrade</td><td>3rd-level support</td><td>ReconcileUI\Petrotrade\LoadPetrotrade.vb(244)</td></tr>
+<tr><td>Float-float Cak pair XXX and YYYY no primary for swap ZZZ</td><td>Incorrect data in Petrotrade</td><td>3rd-level support</td><td>ReconcileUI\Petrotrade\LoadPetrotrade.vb(253)</td></tr>
+<tr><td>Float-float Caks XXX and XXX invalid underlyings XXX and YYY</td><td>Incorrect data in Petrotrade</td><td>3rd-level support</td><td>ReconcileUI\Petrotrade\LoadPetrotrade.vb(312)</td></tr>
+<tr><td>Float-float Caks XXX and XXX neither have a premium, can't determine Purchase/Sale</td><td>Incorrect data in Petrotrade</td><td>3rd-level support</td><td>ReconcileUI\Petrotrade\LoadPetrotrade.vb(323)</td></tr>
+<tr><td>Float-float XXX cak XXX product XXX is not an underlying</td><td>Incorrect data in Petrotrade</td><td>3rd-level support</td><td>ReconcileUI\Petrotrade\LoadPetrotrade.vb(298)</td></tr>
+<tr><td>Golf launch failed</td><td>Internal error</td><td>3rd-level support</td><td>LaunchTrading\LauncherUI.vb(61)</td></tr>
+<tr><td>Import failed</td><td>Internal error</td><td>3rd-level support</td><td>MaintenanceUI\Main.vb(195)</td></tr>
+<tr><td>InstallShortcuts.exe failed, XXX</td><td>Internal error</td><td>3rd-level support</td><td>LaunchTrading\LauncherUI.vb(84)</td></tr>
+<tr><td>Invalid conversion factor, must be a number</td><td>Self-explanatory</td><td></td><td>ManagerUI\EditUnderlying.vb(159)</td></tr>
+<tr><td>Invalid date ' XXX ' at line YYY</td><td>The OT Web service is returning incorrect data</td><td>3rd-level support</td><td>ReconcileUI\OT\LoadOT.vb(135)</td></tr>
+<tr><td>Invalid Entity Type supplied for Lookup, ex</td><td>Self-explanatory</td><td></td><td>ManagerUI\GridWrapper.vb(196)</td></tr>
+<tr><td>Invalid instrument name YYY</td><td>Self-explanatory</td><td></td><td>UIElements\Forms\DealUI\Events.vb(400)</td></tr>
+<tr><td>Invalid month ' XXX ' in cell YYY</td><td>The accounting spreadsheet has a mistake</td><td>Report to accounting</td><td>ReconcileUI\Accounting\LoadAccounting.vb(259)</td></tr>
+<tr><td>Invalid Post-PricingPeriods ' XXX '</td><td>Internal error</td><td>3rd-level support</td><td>BusinessEngine\DBClasses\Contract.vb(343)</td></tr>
+<tr><td>Invalid pre-pricing period ' XXX '</td><td>Internal error</td><td>3rd-level support</td><td>BusinessEngine\DBClasses\Contract.vb(182)</td></tr>
+<tr><td>Invalid pricing periods ' XXX '</td><td>Internal error</td><td>3rd-level support</td><td>BusinessEngine\DBClasses\Contract.vb(325)</td></tr>
+<tr><td>Invalid pricing schedule YYY</td><td>Internal error</td><td>3rd-level support</td><td>BusinessEngine\Business\PricingPeriods.vb(55)</td></tr>
+<tr><td>Invalid quantity ' XXX ' at line YYY</td><td>The OT Web service is returning incorrect data</td><td>3rd-level support</td><td>ReconcileUI\OT\LoadOT.vb(142)</td></tr>
+<tr><td>Invalid trade type XXX at line YYY</td><td>The OT Web service is returning incorrect data</td><td>3rd-level support</td><td>ReconcileUI\OT\LoadOT.vb(154)</td></tr>
+<tr><td>Invalid unit ' XXX ' at line YYY</td><td>The OT Web service is returning incorrect data</td><td>3rd-level support</td><td>ReconcileUI\OT\LoadOT.vb(166)</td></tr>
+<tr><td>Invalid waterfall deal XXX . Underlying <> Primary.ExposeLong</td><td>Internal error</td><td>3rd-level support</td><td>BusinessEngine\Business\PositionUnderlying.vb(26)</td></tr>
+<tr><td>It is recommended that you restart Golf</td><td>Self-explanatory</td><td>Restart Golf</td><td>BusinessEngine\Business\Startup.vb(36)</td></tr>
+<tr><td>It seems that XXX has no positions for yesterday. XXX Summary and Net change tabs may be incorrect</td><td>Self-explanatory</td><td></td><td>TradingUI\Forms\MainUI\MainUI.vb(239)</td></tr>
+<tr><td>It would be simpler to define a single book with these strategies</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidateBooks.vb(27)</td></tr>
+<tr><td>Last reconcile XXX YYY</td><td>Self-explanatory</td><td></td><td>ReconcileUI\ReconcileUI.vb(45)</td></tr>
+<tr><td>Loading accounting YYY</td><td>Self-explanatory</td><td></td><td>ReconcileUI\ReconcileUI.vb(375)</td></tr>
+<tr><td>Loading holidays</td><td>Self-explanatory</td><td></td><td>ReconcileUI\ReconcileUI.vb(445)</td></tr>
+<tr><td>Loading OT YYY</td><td>Self-explanatory</td><td></td><td>ReconcileUI\ReconcileUI.vb(471)</td></tr>
+<tr><td>Loading Petrotrade YYY</td><td>Self-explanatory</td><td></td><td>ReconcileUI\ReconcileUI.vb(515)</td></tr>
+<tr><td>Map can't be copied to Excel, sorry</td><td>Self-explanatory</td><td></td><td>UIElements\Controls\Displays\Controls\DisplayMap.vb(48)</td></tr>
+<tr><td>Moving strategy XXX ...</td><td>Self-explanatory</td><td></td><td>ReconcileUI\ReconcileUI.vb(835)</td></tr>
+<tr><td>Must be a CalendarCell</td><td>Internal error</td><td>3rd-level support</td><td>Common\CalendarCell.vb(25)</td></tr>
+<tr><td>Must be a TimeCell</td><td>Internal error</td><td>3rd-level support</td><td>Common\TimeCell.vb(26)</td></tr>
+<tr><td>No databases visible on XXX</td><td>When selecting a different database, the server chosen isn't running the server browser service</td><td>Choose a different server</td><td>Common\SelectServerUI.vb(128)</td></tr>
+<tr><td>No default book has been defined for you, assuming YYY</td><td>Self-explanatory</td><td></td><td>TradingUI\Forms\MainUI\MainUI.vb(67)</td></tr>
+<tr><td>No opening position from yesterday available</td><td>Self-explanatory</td><td></td><td>UIElements\Controls\Displays\Controls\DisplayNetChange.vb(29)</td></tr>
+<tr><td>No SQL servers found on this network</td><td>PC connected to a Cargill network?</td><td>2nd-level support</td><td>Common\SelectServerUI.vb(90)</td></tr>
+<tr><td>Not implemented, sorry</td><td>Internal error</td><td>3rd-level support</td><td>UIElements\Forms\PricingUI.vb(61)</td></tr>
+<tr><td>Not implemented, sorry</td><td>Internal error</td><td>3rd-level support</td><td>UIElements\Forms\PricingUI.vb(65)</td></tr>
+<tr><td>Not implemented, sorry</td><td>Internal error</td><td>3rd-level support</td><td>UIElements\Forms\PricingUI.vb(69)</td></tr>
+<tr><td>Only between barrels and tonnes!</td><td>Self-explanatory</td><td></td><td>UIElements\Forms\PositionsUI.vb(540)</td></tr>
+<tr><td>OT deals moved to today</td><td>Self-explanatory</td><td></td><td>ReconcileUI\ReconcileUI.vb(886)</td></tr>
+<tr><td>OT didn't return the XXX field</td><td>The OT Web service is returning incorrect data</td><td>3rd-level support</td><td>ReconcileUI\OT\LoadOT.vb(110)</td></tr>
+<tr><td>Period start XXX cannot be after finish YYY</td><td>Internal error</td><td>3rd-level support</td><td>BusinessEngine\Calendars\Classes\Period.vb(26)</td></tr>
+<tr><td>Petrotrade deals can't be deleted</td><td>Self-explanatory</td><td></td><td>UIElements\Forms\BlotterUI.vb(289)</td></tr>
+<tr><td>Petrotrade deals moved to today</td><td>Self-explanatory</td><td></td><td>ReconcileUI\ReconcileUI.vb(882)</td></tr>
+<tr><td>Position for waterfalling cannot contain primaries</td><td>Internal error</td><td>3rd-level support</td><td>BusinessEngine\Business\PositionWaterfall.vb(16)</td></tr>
+<tr><td>Pricing cannot finish before the trade date</td><td>Self-explanatory</td><td></td><td>UIElements\Forms\DealUI\Events.vb(234)</td></tr>
+<tr><td>Pricing can't finish before it starts</td><td>Self-explanatory</td><td></td><td>UIElements\Forms\DealUI\Events.vb(224)</td></tr>
+<tr><td>Primaries normally refer to underlyings in the same region</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidatePrimaries.vb(23)</td></tr>
+<tr><td>Primary XXX is a Arb but its underlyings haven't got the same sulphur,</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidatePrimaries.vb(43)</td></tr>
+<tr><td>Primary XXX is a Crack but its sulphur is YYY</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidatePrimaries.vb(87)</td></tr>
+<tr><td>Primary XXX is a Crack but its underlyings are in different regions,</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidatePrimaries.vb(81)</td></tr>
+<tr><td>Primary XXX is a Crack but neither underlying is a Crude product,</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidatePrimaries.vb(75)</td></tr>
+<tr><td>Primary XXX is a Crude Arb but one underlying isn't a Crude,</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidatePrimaries.vb(49)</td></tr>
+<tr><td>Primary XXX is a Crude ArbDiff but at least one underlying isn't a Crude,</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidatePrimaries.vb(68)</td></tr>
+<tr><td>Primary XXX is a Crude Diff but one underlying isn't a Crude,</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidatePrimaries.vb(100)</td></tr>
+<tr><td>Primary XXX is a Diff but the underlyings are in different regions,</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidatePrimaries.vb(94)</td></tr>
+<tr><td>Primary XXX is an Arb but both underlyings are in the same region,</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidatePrimaries.vb(37)</td></tr>
+<tr><td>Primary XXX is an ArbDiff but both its underlyings have the same sulphur,</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidatePrimaries.vb(62)</td></tr>
+<tr><td>Primary XXX is an ArbDiff but both underlyings are in the same region,</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidatePrimaries.vb(56)</td></tr>
+<tr><td>Primary XXX is in region XXX but its underlyings are in XXX and YYY</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidatePrimaries.vb(22)</td></tr>
+<tr><td>Primary XXX waterfalls on its long underlying but it isn't a Crack or a Dam,</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidatePrimaries.vb(28)</td></tr>
+<tr><td>primary.Name XXX</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidateWaterfall.vb(247)</td></tr>
+<tr><td>Quantity ' XXX ' at YYY is not a valid number</td><td>The accounting spreadsheet has a mistake</td><td>Report to accounting</td><td>ReconcileUI\Accounting\LoadAccounting.vb(109)</td></tr>
+<tr><td>Ready for trading.</td><td>Self-explanatory</td><td></td><td>ReconcileUI\ReconcileUI.vb(896)</td></tr>
+<tr><td>Really delete XXX ?,</td><td>Self-explanatory</td><td></td><td>UIElements\Forms\PositionsUI.vb(105)</td></tr>
+<tr><td>Reconcile mismatch of XXX for XXX in YYY</td><td>Self-explanatory</td><td></td><td>ReconcileUI\ReconcileZero.vb(59)</td></tr>
+<tr><td>Removed deleted holiday XXX in YYY</td><td>Self-explanatory</td><td></td><td>ReconcileUI\Holidays\HolidaysLoader.vb(202)</td></tr>
+<tr><td>Removed old holiday XXX in YYY</td><td>Self-explanatory</td><td></td><td>ReconcileUI\Holidays\HolidaysLoader.vb(178)</td></tr>
+<tr><td>Removing old imports, this may take a moment, Color.Black</td><td>Self-explanatory</td><td></td><td>ReconcileUI\ReconcileUI.vb(116)</td></tr>
+<tr><td>Service broker IS_BROKER_ENABLED= XXX , should be True</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(210)</td></tr>
+<tr><td>Service broker XXX DealID YYY</td><td>Self-explanatory</td><td>None, information only</td><td>DatabaseEngine\ServiceBrokerUtility.vb(429)</td></tr>
+<tr><td>ServiceBrokerUtility warning YYY</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(453)</td></tr>
+<tr><td>SQL Broker wouldn't register</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(331)</td></tr>
+<tr><td>SQL Change Tracking sent an invalid operation YYY</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(426)</td></tr>
+<tr><td>Sql Service broker said 'A previous statement has caused query notifications to fire under the current transaction'</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(275)</td></tr>
+<tr><td>Sql Service broker said 'A SELECT statement that cannot be notified or was provided' Source= XXX Type= YYY</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(278)</td></tr>
+<tr><td>Sql Service broker said 'A statement was provided that cannot be notified (for example, an UPDATE statement.'</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(263)</td></tr>
+<tr><td>Sql Service broker said 'An internal server error occurred'</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(254)</td></tr>
+<tr><td>Sql Service broker said 'An underlying object related to the query was dropped' someone's deleted one of our tables!</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(251)</td></tr>
+<tr><td>Sql Service broker said 'An underlying server object related to the query was modified' someone's messing with our tables!</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(245)</td></tr>
+<tr><td>Sql Service broker said 'server resource pressure'</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(281)</td></tr>
+<tr><td>Sql Service broker said 'the info option sent by the server was not recognized by the client'</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(293)</td></tr>
+<tr><td>Sql Service broker said 'The server was restarted (notifications are sent during restart.'</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(284)</td></tr>
+<tr><td>Sql Service broker said 'The SET options were not set appropriately at subscription time'</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(272)</td></tr>
+<tr><td>Sql Service broker said 'The statement was executed under an isolation mode that was not valid (for example, Snapshot'</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(266)</td></tr>
+<tr><td>Sql Service broker said 'The subscribing query causes the number of templates on one of the target tables to exceed the maximum allowable limit'</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(287)</td></tr>
+<tr><td>Sql Service broker said 'The SqlDependency object already fired, and new commands cannot be added to it.'</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(242)</td></tr>
+<tr><td>Sql Service broker said 'The SqlDependency object has expired'</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(257)</td></tr>
+<tr><td>Sql Service broker said 'Used to distinguish the server-side cause for a query notification firing'</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(269)</td></tr>
+<tr><td>Sql Service broker sent an unknown Info= YYY</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(299)</td></tr>
+<tr><td>Start Trading has already been run today. If you want to run it again, you must re-load yesterday first.</td><td>Self-explanatory</td><td>Reload yesterday and then reload today</td><td>ReconcileUI\ReconcileUI.vb(817)</td></tr>
+<tr><td>Swap contract nominals don't match XXX YYY</td><td>The deal is a swap but the contracts have different amounts</td><td>3rd-level support</td><td>BusinessEngine\Business\BookDeal.vb(59)</td></tr>
+<tr><td>Swap expires today. Check that this is really your intention</td><td>Self-explanatory</td><td></td><td>UIElements\Controls\Displays\Controls\DisplayGrid.vb(361)</td></tr>
+<tr><td>Switch to XXX on XXX and restart?,</td><td>Self-explanatory</td><td></td><td>UIElements\Forms\OptionsUI.vb(58)</td></tr>
+<tr><td>sys.change_tracking_databases is missing</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(152)</td></tr>
+<tr><td>sys.change_tracking_tables is missing</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(163)</td></tr>
+<tr><td>The calendar service at XXX failed YYY</td><td>Problem getting future settlement dates from the ETIOPT web service </td><td>3rd-level support</td><td>ReconcileUI\FutureSettlements\FutureSettlementLoader.vb(70)</td></tr>
+<tr><td>The calendar service at XXX returned an invalid date for YYY</td><td>Problem getting future settlement dates from the ETIOPT web service </td><td>3rd-level support</td><td>ReconcileUI\FutureSettlements\FutureSettlementLoader.vb(116)</td></tr>
+<tr><td>The last reconciliation was XXX . XXX</td><td>Self-explanatory</td><td></td><td>TradingUI\Forms\MainUI\MainUI.vb(124)</td></tr>
+<tr><td>The other underlying products mostly have XXX BRL/Tonne</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidateUnderlyings.vb(48)</td></tr>
+<tr><td>The primary XXX with Expose Long XXX and Expose Short XXX already exists!</td><td>Self-explanatory</td><td></td><td>ManagerUI\EditPrimary.vb(117)</td></tr>
+<tr><td>The Service Broker is not reporting changes. You will not receive new deals automatically.</td><td>The service broker check failed</td><td>3rd-level support</td><td>BusinessEngine\Business\Business.vb(223)</td></tr>
+<tr><td>The Service Broker is working correctly.</td><td>The service broker check received the trade confirmation, the service broker is thuis working nicely</td><td>None, information only</td><td>BusinessEngine\Business\Business.vb(220)</td></tr>
+<tr><td>The trade data is stale and you can only make trades back-dated to yesterday</td><td>Self-explanatory</td><td></td><td>TradingUI\Forms\MainUI\MainUI.vb(125)</td></tr>
+<tr><td>The waterfall needs primaries defined for all but one of these products. You must create these primaries</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidateWaterfall.vb(150)</td></tr>
+<tr><td>There are currently XXX adjustments. Delete them?</td><td>Adjustments should be deleted the day after they are created</td><td>Click 'Yes' unless you're sure you want the adjustment to last another day</td><td>ReconcileUI\ReconcileUI.vb(307)</td></tr>
+<tr><td>There are invalid deals, look at the message window</td><td>Self-explanatory</td><td></td><td>ReconcileUI\ReconcileUI.vb(822)</td></tr>
+<tr><td>There are no accounting strategies in YYY</td><td>The parameters in ACStrategies are incorrect</td><td>3rd-level support</td><td>ReconcileUI\ReconcileUI.vb(356)</td></tr>
+<tr><td>There cannot be positions XXX quantity YYYY</td><td>The accounting spreadsheet has a mistake</td><td>Report to accounting</td><td>ReconcileUI\Accounting\LoadAccounting.vb(118)</td></tr>
+<tr><td>There is no future settlement date for XXX in calendar YYY</td><td>If the month XXX is more than 15 years in the future, this is normal. Otherwise, the futures loader is not fetching dates from ETIOPT</td><td>3rd-level support if month is in the next few years</td><td>BusinessEngine\Calendars\Functions\FutureSettlementDate.vb(12)</td></tr>
+<tr><td>There is no such month YYY</td><td>Internal error</td><td>3rd-level support</td><td>UIElements\Controls\CalendarYear.vb(150)</td></tr>
+<tr><td>There were no deals entered in Golf yesterday! Stop using that ghastly spreadsheet!</td><td>Self-explanatory</td><td></td><td>ReconcileUI\MatchDeals.vb(40)</td></tr>
+<tr><td>This will reset the tab layouts for *ALL* books to the defaults</td><td>Self-explanatory</td><td></td><td>TradingUI\Forms\MainUI\Menus.vb(243)</td></tr>
+<tr><td>To really start trading in an emergency, start the clock by setting the date to Now.</td><td>Self-explanatory</td><td></td><td>TradingUI\Forms\MainUI\MainUI.vb(126)</td></tr>
+<tr><td>To sell, check 'Sell' and enter a positive quantity.</td><td>Self-explanatory</td><td></td><td>UIElements\Forms\DealUI\Events.vb(518)</td></tr>
+<tr><td>Trader XXX found in contract but missing in TBTRDSP !</td><td>Incorrect data in Petrotrade</td><td>3rd-level support</td><td>ReconcileUI\Petrotrade\PetrotradeTraders.vb(36)</td></tr>
+<tr><td>TraderUserInterface.exe not found</td><td>Internal error</td><td>3rd-level support</td><td>LaunchTrading\LauncherUI.vb(38)</td></tr>
+<tr><td>Unable to connect to XXX on YYY</td><td>Verify that XXX is really a Golf database on the server YYY</td><td>2nd-level support</td><td>DatabaseEngine\DataEngine.vb(64)</td></tr>
+<tr><td>Unable to detect proxy configuration</td><td>Network error</td><td>2nd-level support</td><td>Common\HTTPGet.vb(26)</td></tr>
+<tr><td>Unable to display the error message YYY</td><td>An error occurred and another error occurred trying to display it. This might be due to a corrupted runtime. Re-boot the PC</td><td>3rd-level support</td><td>Common\ErrorHandling\ErrorHandlers.vb(103)</td></tr>
+<tr><td>Unable to get IS_BROKER_ENABLED for YYY</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(213)</td></tr>
+<tr><td>Unable to get lastest Change Tracking version</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(115)</td></tr>
+<tr><td>Unable to get minimum Change Tracking version</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(136)</td></tr>
+<tr><td>Unable to get snapshot_isolation_state_desc for YYY</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(229)</td></tr>
+<tr><td>Unable to get XXX for YYY</td><td>Internal error</td><td>3rd-level support</td><td>DatabaseEngine\ServiceBrokerUtility.vb(197)</td></tr>
+<tr><td>Unable to save your settings</td><td>Internal error</td><td>3rd-level support</td><td>UIElements\Classes\BookLayouts.vb(98)</td></tr>
+<tr><td>Unable to send email YYY</td><td>An error occurred and the user clicked 'send an email' but it coudn't be sent because of YYY</td><td>Ask the user for a screenshot</td><td>Common\ErrorHandling\ErrorHandlers.vb(97)</td></tr>
+<tr><td>Unable to start background worker to book deal</td><td>Framework runtime error</td><td>3rd-level support</td><td>BusinessEngine\Business\BulkBooker.vb(24)</td></tr>
+<tr><td>Unable to start Service Broker</td><td>Self-explanatory</td><td>2nd-level support</td><td>DatabaseEngine\DataEngine.vb(94)</td></tr>
+<tr><td>Underlying crude products usually have sulphur 'Crude'</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidateUnderlyings.vb(65)</td></tr>
+<tr><td>Underlying crude products usually have sulphur 'Refined'</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidateUnderlyings.vb(58)</td></tr>
+<tr><td>Underlying product XXX is an orphan,</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidateWaterfall.vb(139)</td></tr>
+<tr><td>Underlying product XXX is an orphan,</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidateWaterfall.vb(159)</td></tr>
+<tr><td>Underlying products are usually either Crude or Refined</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidateUnderlyings.vb(71)</td></tr>
+<tr><td>Underlying XXX Barrels per tonne is YYY</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidateUnderlyings.vb(47)</td></tr>
+<tr><td>Underlying XXX is in category Crude but its sulphur is YYY</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidateUnderlyings.vb(64)</td></tr>
+<tr><td>Underlying XXX is in category Refined but its sulphur is 'Crude',</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidateUnderlyings.vb(57)</td></tr>
+<tr><td>Underlying XXX is in category YYY</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidateUnderlyings.vb(70)</td></tr>
+<tr><td>Unexpected error in YYY.Name</td><td>This is a general-purpose error when something unexpected happens during a UI event. YYY is the cause.</td><td>Usually not serious, 3rd-level support</td><td>Common\Controls\DynamicGroupBox.vb(168)</td></tr>
+<tr><td>Unexpected GolfGridView error YYY</td><td>Internal error</td><td>3rd-level support</td><td>MaintenanceUI\PopulateGrid.vb(136)</td></tr>
+<tr><td>Unknown product ' XXX ' at line YYY</td><td>The OT Web service is returning incorrect data</td><td>3rd-level support</td><td>ReconcileUI\OT\LoadOT.vb(128)</td></tr>
+<tr><td>Unknown product ' XXX ' in YYY</td><td>The accounting spreadsheet has a mistake</td><td>Report to accounting</td><td>ReconcileUI\Accounting\LoadAccounting.vb(73)</td></tr>
+<tr><td>Unknown UOM ' XXX ' in cak XXX product YYY</td><td>Incorrect data in Petrotrade</td><td>3rd-level support</td><td>ReconcileUI\Petrotrade\LoadPetrotrade.vb(504)</td></tr>
+<tr><td>Updated deal XXX YYY</td><td>Self-explanatory</td><td>None, information only</td><td>BusinessEngine\Business\Business.vb(104)</td></tr>
+<tr><td>Wake Up!</td><td>Self-explanatory</td><td></td><td>TradingUI\Forms\MainUI\BusinessEvents.vb(64)</td></tr>
+<tr><td>Waterfall has more than one root Product YYY.ToArray,</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidateWaterfall.vb(149)</td></tr>
+<tr><td>Waterfall has no root Product (every underlying waterfalls via a primary,</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidateWaterfall.vb(135)</td></tr>
+<tr><td>Waterfalling on the long underlying is normal only for cracks or primaries with 'Dam'</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidatePrimaries.vb(29)</td></tr>
+<tr><td>Would you like to create a long-term strategy for this strategy?,</td><td>Self-explanatory</td><td></td><td>ManagerUI\EditStrategy.vb(134)</td></tr>
+<tr><td>XXX deals matched correctly between Golf and PetroTrade</td><td>Self-explanatory</td><td></td><td>ReconcileUI\MatchDeals.vb(78)</td></tr>
+<tr><td>XXX doesn't use strategy YYY</td><td>Self-explanatory</td><td>Select a book that contains the strategy OT</td><td>ReconcileUI\ReconcileUI.vb(482)</td></tr>
+<tr><td>XXX Golf deals yesterday didn't match with PetroTrade deals</td><td>Self-explanatory</td><td></td><td>ReconcileUI\MatchDeals.vb(62)</td></tr>
+<tr><td>XXX PetroTrade deals yesterday didn't match with Golf deals</td><td>Self-explanatory</td><td></td><td>ReconcileUI\MatchDeals.vb(69)</td></tr>
+<tr><td>XXX prices at YYY, but XXX prices at YYY</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidateUnderlyings.vb(25)</td></tr>
+<tr><td>Yesterday's position isn't available</td><td>Self-explanatory</td><td></td><td>UIElements\Controls\Displays\Controls\DisplayYesterday.vb(21)</td></tr>
+<tr><td>You are not a Golf trader. If you think you should be, you need the help desk to register you with GSM., Access denied, MessageBoxButtons.OK, MessageBoxIcon.Stop</td><td>Self-explanatory</td><td>2nd-level support</td><td>TradingUI\ApplicationEvents.vb(39)</td></tr>
+<tr><td>You are not a registered trader. Sorry.</td><td>The Windows user is not in the tTrader table</td><td>Use the manager interface to add it</td><td>BusinessEngine\Business\PublicProperties.vb(347)</td></tr>
+<tr><td>You are not allowed to reconcile. If you think you should be, you need to get the help desk to register you in GSM., Access denied, MessageBoxButtons.OK, MessageBoxIcon.Stop</td><td>Self-explanatory</td><td></td><td>ReconcileUI\Main\MainUI.vb(55)</td></tr>
+<tr><td>You are not authorised to make adjustments in YYY</td><td>Self-explanatory</td><td></td><td>ReconcileUI\Main\Events.vb(123)</td></tr>
+<tr><td>You are not authorised to reconcile for YYY</td><td>Self-explanatory</td><td></td><td>ReconcileUI\Main\Events.vb(220)</td></tr>
+<tr><td>You are not authorised to start trading in YYY</td><td>Self-explanatory</td><td></td><td>ReconcileUI\Main\Events.vb(234)</td></tr>
+<tr><td>You are not authorised to trade in book YYY</td><td>Self-explanatory</td><td></td><td>TradingUI\Forms\MainUI\Menus.vb(205)</td></tr>
+<tr><td>You are not authorised to trade in book YYY</td><td>Self-explanatory</td><td></td><td>UIElements\Controls\Displays\Controls\DisplayGrid.vb(319)</td></tr>
+<tr><td>You can only clear trades in the Playground, MsgBoxStyle.Exclamation, Naughty, naughty!</td><td>Self-explanatory</td><td>None, information only</td><td>BusinessEngine\Business\ClearTrades.vb(9)</td></tr>
+<tr><td>You don't get into any house, imposter!</td><td>Self-explanatory</td><td></td><td>UIElements\Forms\WizardCheckUI.vb(24)</td></tr>
+<tr><td>You don't have access to your default book XXX . Defaulting to YYY</td><td>Self-explanatory</td><td></td><td>TradingUI\Forms\MainUI\MainUI.vb(73)</td></tr>
+<tr><td>You must add an Arb or Diff primary to connect it to the waterfall</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidateWaterfall.vb(140)</td></tr>
+<tr><td>You must add an Arb or Diff primary to connect it to the waterfall</td><td>Self-explanatory</td><td></td><td>ManagerUI\ValidateWaterfall.vb(160)</td></tr>
+</table>
+
+</body>
+</html>

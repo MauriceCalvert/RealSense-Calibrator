@@ -35,11 +35,14 @@ Public Class Camera
     Public Sub New(device As Device)
         _Device = device
         _Sw.Start()
+        Dim failure As String = "Eh?"
         Try
+            failure = "No colour sensor"
             _ColourSettings = New SensorSettings(ColourSensor.Options)
+            failure = "No depth sensor"
             _DepthSettings = New SensorSettings(DepthSensor.Options)
         Catch ex As Exception
-
+            Throw New Exception(failure, ex)
         End Try
     End Sub
     ''' <summary>

@@ -23,10 +23,16 @@ Public Class Cameras
             Throw
         End Try
         Dim devices As DeviceList = context.QueryDevices
+        Dim cameras As Integer = 0
         For id As Integer = 0 To devices.Count - 1
             Dim device As Device = devices(id)
-            MyBase.Add(New Camera(device))
+            Try
+                MyBase.Add(New Camera(device))
+                cameras += 1
+            Catch ex As Exception
+                _Logger.Warn(ex, $"Device {id} skipped")
+            End Try
         Next
-        _Logger.Info("{0} camera{1} detected", devices.Count, If(devices.Count > 1, "s", ""))
+        _Logger.Info("{0} camera{1} detected", cameras, If(devices.Count > 1, "s", ""))
     End Sub
 End Class
